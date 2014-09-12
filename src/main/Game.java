@@ -1,6 +1,9 @@
 package main;
 
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
@@ -22,8 +25,30 @@ public class Game extends Canvas implements Runnable {
 		
 	}
 	
-	public void render(){
+	public void renderBackgroud(Graphics g){
 		
+	}
+	
+	public void renderForeground(Graphics g){
+		
+	}
+	
+	public void render(){
+		BufferStrategy bs=this.getBufferStrategy();
+		if (bs==null) {
+			createBufferStrategy(3);
+			return;
+		}
+		Graphics g=bs.getDrawGraphics();
+		g.setColor(Color.GRAY);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		renderBackgroud(g);
+		renderForeground(g);
+		
+		g.dispose();
+		
+		bs.show();
 	}
 	
 	@Override

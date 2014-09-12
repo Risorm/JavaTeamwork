@@ -13,27 +13,29 @@ Upon collision with monster hero dies and game starts from beginning.
 
 2. Structure:
 
-Sprites
-3 classes:
+ - Sprites 
+ 	- http://opengameart.org/content/2d-complete-kit
+ 	- http://www.cgtextures.com/
+ - 3 classes:
 	- utils;
 	- character;
 	- map;
 
 3. Steps:
 
-Field
-Environment
-Character / Hero
-Move Character
+- Field
+- Environment
+- Character / Hero
+- Move Character
 	- jumping
 	- walking
-Monsters
-Collectables (coins)
-Move Monsters
+- Monsters
+- Collectables (coins)
+- Move Monsters
 	- walking
 
-Collision between Hero and Monsters
-Collision between Hero and collectables
+- Collision between Hero and Monsters
+- Collision between Hero and collectables
 
-Scoring system
-Lives
+- Scoring system
+- Lives

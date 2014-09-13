@@ -15,7 +15,6 @@ public class Game extends JFrame {
 		setResizable(false);
 
 		pack();
-
 		setTitle(GamePanel.TITLE);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

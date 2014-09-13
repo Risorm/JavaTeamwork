@@ -3,26 +3,28 @@ package main;
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
-public class Game extends JFrame {
-
-	public Game() {
+public class Game extends JFrame
+{
+	public static final String TITLE = "AeroBlue-Platformer";
+	static JFrame window;
+	
+	public Game() 
+	{
 		initGame();
 	}
-
-	private void initGame() {
-		add(new GamePanel());
-		setResizable(false);
-
-		pack();
-		setTitle(GamePanel.TITLE);
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
+	static private void initGame()
+	{
+		window = new JFrame(TITLE);
+		window.setContentPane(new GamePanel());
+		window.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		window.setResizable(false);
+		window.pack();
+		window.setVisible(true);
 	}
-
-	public static void main(String[] args) {
-		Game game = new Game();
-		game.setVisible(true);
-		game.setFocusable(true);
-		game.requestFocus();
+	public static void main(String[] args) 
+	{
+		initGame();
 	}
 }
+

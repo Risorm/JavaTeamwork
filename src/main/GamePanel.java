@@ -33,13 +33,11 @@ public class GamePanel extends JPanel implements ActionListener {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
 		drawAll(g);
 	}
 
 	public void drawAll(Graphics graphics) {
 		// drawHere
-
 		Toolkit.getDefaultToolkit().sync();
 	}
 

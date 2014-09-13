@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Game extends JFrame {
 
-	private static boolean running = false;
 
 	public Game() {
 		initGame();

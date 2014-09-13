@@ -13,95 +13,86 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
 public class GamePanel extends JPanel implements ActionListener {
 
-    private Timer timer;
+	private Timer timer;
 
-    Character character;
-    int velx = 0, vely = 0;
-    Map map;
-    public GamePanel() {
+	Character character;
+	int velx = 0, vely = 0;
+	Map map;
 
-        addKeyListener(new InputHandler());
-        setFocusable(true);
-        setBackground(Color.BLACK);
-        setDoubleBuffered(true);
-        
-        map = new Map();
-        System.out.println(map.tiles.size());
-        character = new Character();
-        timer = new Timer(5, this);
-        timer.start();
-    }
+	public GamePanel() {
 
+		addKeyListener(new InputHandler());
+		setFocusable(true);
+		setBackground(Color.BLACK);
+		setDoubleBuffered(true);
 
-    public void paint(Graphics g) {
-        super.paint(g);
+		map = new Map();
+		System.out.println(map.tiles.size());
+		character = new Character();
+		timer = new Timer(5, this);
+		timer.start();
+	}
 
-        Graphics2D g2d = (Graphics2D)g;
-      //  g2d.fillRect(tempRectangle.x, tempRectangle.y,40,40);
-        
-        map.drawMap(g);
-        //g2d.drawImage(character.currentImage, character.positionX, character.positionY, this);
-       
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
-    }
+	public void paint(Graphics g) {
+		super.paint(g);
 
+		Graphics2D g2d = (Graphics2D) g;
+		// g2d.fillRect(tempRectangle.x, tempRectangle.y,40,40);
 
-    public void actionPerformed(ActionEvent e) 
-    {
-    	character.positionX += velx;
-    	//tempRectangle.y += vely;
-    	if(character.positionY < 480 - 72)
-    	{
-    		character.positionY += 4;
-    	}
-        repaint();  
-    }
-    
-    private class InputHandler extends KeyAdapter
-    {
-    	public void keyPressed(KeyEvent e)
-        {
-        	int key = e.getKeyCode();
+		map.drawMap(g);
+		g2d.drawImage(character.currentImage, character.positionX,
+				character.positionY, this);
 
-        	if (key == KeyEvent.VK_LEFT)
-            {
-                velx = -1;
-            }
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
+	}
 
-            if (key == KeyEvent.VK_RIGHT) 
-            {
-            	velx = 1;
-            }
+	public void actionPerformed(ActionEvent e) {
+		character.positionX += velx;
+		character.positionY += vely;
+		// tempRectangle.y += vely;
+		if (character.positionY < 480 - 72) {
+			character.positionY += 2;
+		}
+		repaint();
+	}
 
-            if (key == KeyEvent.VK_UP) 
-            {
-            	//tempRectangle.y = -80;
-            }
+	private class InputHandler extends KeyAdapter {
+		public void keyPressed(KeyEvent e) {
+			int key = e.getKeyCode();
 
-            if (key == KeyEvent.VK_DOWN)
-            {
-            	vely = 1;
-            }
-        }
-    	
-        public void keyReleased(KeyEvent e) 
-        {
-        	int key = e.getKeyCode();
-            
-            if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT)
-            {
-                velx = 0;
-            }
+			if (key == KeyEvent.VK_LEFT) {
+				velx = -1;
+			}
 
-            if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) 
-            {
-            	vely = 0;
-            }         
-        }
-    }
+			if (key == KeyEvent.VK_RIGHT) {
+				velx = 1;
+			}
+
+			if (key == KeyEvent.VK_UP || key == KeyEvent.VK_SPACE) {
+				// tempRectangle.y = -80;
+				vely=-1;
+				character.positionY -= 60;
+			}
+
+			if (key == KeyEvent.VK_DOWN) {
+				vely = 1;
+			}
+		}
+
+		public void keyReleased(KeyEvent e) {
+			int key = e.getKeyCode();
+
+			if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT) {
+				velx = 0;
+			}
+
+			if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) {
+				vely = 0;
+			}
+		}
+	}
 
 }

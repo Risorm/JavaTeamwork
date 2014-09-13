@@ -29,11 +29,11 @@ public class Character
 		
 		for (int i = 1; i <= 3 ; i++)
 		{
-			walkRightAnimation.add(Utils.loadImage("walkRight" + i + ".png"));
-			walkLeftAnimation.add(Utils.loadImage("walkLeft" + i + ".png"));
+			walkRightAnimation.add(Utils.loadImage("res/walkRight" + i + ".png"));
+			walkLeftAnimation.add(Utils.loadImage("res/walkLeft" + i + ".png"));
 		}
-		idleRightImage = Utils.loadImage("idleRight.png");
-		idleLeftImage = Utils.loadImage("idleLeft.png");
+		idleRightImage = Utils.loadImage("res/idleRight.png");
+		idleLeftImage = Utils.loadImage("res/idleLeft.png");
 	}
 	
 	public void update()

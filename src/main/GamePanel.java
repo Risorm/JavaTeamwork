@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements ActionListener {
 	private void initGamePanel() {
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setDoubleBuffered(true);
-
 		timer = new Timer(25, this);
 		timer.start();
 	}

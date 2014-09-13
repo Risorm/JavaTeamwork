@@ -26,5 +26,6 @@ public class Game extends JFrame {
 		Game game = new Game();
 		game.setVisible(true);
 		game.setFocusable(true);
+		game.requestFocus();
 	}
 }

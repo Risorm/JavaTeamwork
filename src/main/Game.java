@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class Game extends Canvas implements Runnable {
-
+	
+	
+	private static JFrame frame= new JFrame();
 	public static final int WIDTH=640;
 	public static final int HEIGHT=480;
 	public static final String TITLE="AeroBlue-Platformer";
@@ -77,6 +79,7 @@ public class Game extends Canvas implements Runnable {
 			if (System.currentTimeMillis()-timer>1000) {
 				timer+=1000;
 				System.out.println(ticks + "Ticks, FPS: "+frames);
+				frame.setTitle(TITLE+ "      Ticks: "+ticks+"   FPS: "+frames);
 				ticks=0;
 				frames=0;
 			}
@@ -84,7 +87,7 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 	public static void main(String[] args) {
-		JFrame frame = new JFrame(TITLE);
+		frame.setTitle(TITLE);
 		frame.add(game);
 		frame.setSize(WIDTH, HEIGHT);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

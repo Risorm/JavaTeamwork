@@ -25,7 +25,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		timer.start();
 	}
 
-	
 	protected void paintComponent(Graphics2D g) {
 		super.paintComponent(g);
 		drawAll(g);

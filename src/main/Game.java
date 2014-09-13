@@ -1,7 +1,5 @@
 package main;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
@@ -24,11 +22,9 @@ public class Game extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		Game game = new Game();
 		game.setVisible(true);
 		game.setFocusable(true);
 	}
 }
-

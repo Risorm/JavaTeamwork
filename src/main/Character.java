@@ -20,6 +20,7 @@ public class Character
 	
 	boolean idleLeft;
 	boolean idleRight;
+	boolean isJumping;
 	
 	public void initImages()
 	{

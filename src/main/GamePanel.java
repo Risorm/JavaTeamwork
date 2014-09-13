@@ -57,6 +57,10 @@ public class GamePanel extends JPanel implements ActionListener {
     	{
     		character.positionY += 4;
     	}
+    	if(character.positionY >= Game.HEIGHT - 85)
+        {
+         character.isJumping = false;
+        }
         repaint();  
     }
     
@@ -86,13 +90,11 @@ public class GamePanel extends JPanel implements ActionListener {
 
             if (key == KeyEvent.VK_UP) 
             {
-            	if (vely==-1) {
-					
-				}
-            	else {
-            		vely = -1;
-                	character.positionY -= 60;
-				}
+            	if(character.isJumping == false)
+                {
+                 character.isJumping = true;
+                 character.positionY -= 60;
+                }
             }
 
             if (key == KeyEvent.VK_DOWN)

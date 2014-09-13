@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable {
 				frames=0;
 			}
 		}
-		stop();
+		stop(); 
 	}
 	public static void main(String[] args) {
 		frame.setTitle(TITLE);

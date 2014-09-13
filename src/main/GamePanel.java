@@ -11,10 +11,9 @@ import javax.swing.Timer;
 
 
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements ActionListener
+public class GamePanel extends JPanel implements Runnable
 {
 	Image toDrawImage;
-	Timer timer;
 	
 	public static final int WIDTH = 640, HEIGHT = 480;
 	public static final String TITLE="AeroBlue-Platformer";
@@ -29,8 +28,6 @@ public class GamePanel extends JPanel implements ActionListener
 		setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		setDoubleBuffered(true);
 		
-		timer = new Timer(25, this);
-		timer.start();
 	}
 	
 	@Override
@@ -47,9 +44,10 @@ public class GamePanel extends JPanel implements ActionListener
 		
 		Toolkit.getDefaultToolkit().sync();
 	}
-	
-	public void actionPerformed(ActionEvent e) 
+	@Override
+	public void run()
 	{
+		
 		repaint();
 	}
 }

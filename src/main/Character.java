@@ -1,4 +1,4 @@
-import java.awt.Image;
+import java.awt.*;
 import java.util.LinkedList;
 
 public class Character 

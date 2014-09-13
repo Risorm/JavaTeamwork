@@ -1,5 +1,3 @@
-package main;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,7 +17,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private Timer timer;
 
     Rectangle tempRectangle;
-    
+    int velx = 0, vely = 0;
     public GamePanel() {
 
         addKeyListener(new InputHandler());
@@ -46,39 +44,51 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void actionPerformed(ActionEvent e) 
     {
+    	tempRectangle.x += velx;
+    	tempRectangle.y += vely;
         repaint();  
     }
     
     private class InputHandler extends KeyAdapter
     {
-        public void keyReleased(KeyEvent e) 
+    	public void keyPressed(KeyEvent e)
         {
-            int key = e.getKeyCode();
+        	int key = e.getKeyCode();
 
-            if (key == KeyEvent.VK_LEFT)
+        	if (key == KeyEvent.VK_LEFT)
             {
-                tempRectangle.x += -1;
+                velx = -1;
             }
 
             if (key == KeyEvent.VK_RIGHT) 
             {
-            	tempRectangle.x += 1;
+            	velx = 1;
             }
 
             if (key == KeyEvent.VK_UP) 
             {
-            	tempRectangle.y += -1;
+            	vely = -1;
             }
 
             if (key == KeyEvent.VK_DOWN)
             {
-            	tempRectangle.y += 1;
+            	vely = 1;
             }
         }
-
-        public void keyPressed(KeyEvent e)
+    	
+        public void keyReleased(KeyEvent e) 
         {
+        	int key = e.getKeyCode();
             
+            if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT)
+            {
+                velx = 0;
+            }
+
+            if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) 
+            {
+            	vely = 0;
+            }         
         }
     }
 

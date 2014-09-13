@@ -12,7 +12,7 @@ public class Game extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
-        setTitle("R - Type");
+        setTitle("AeroBlue Platformer");
         setResizable(false);
         setVisible(true);
     }

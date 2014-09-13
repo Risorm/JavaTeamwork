@@ -65,7 +65,7 @@ public class GamePanel extends JPanel implements ActionListener {
     	public void keyPressed(KeyEvent e)
         {
         	int key = e.getKeyCode();
-
+        	
         	if (key == KeyEvent.VK_LEFT)
             {
                 velx = -1;
@@ -86,8 +86,13 @@ public class GamePanel extends JPanel implements ActionListener {
 
             if (key == KeyEvent.VK_UP) 
             {
-            	vely = -1;
-            	character.positionY -= 60;
+            	if (vely==-1) {
+					
+				}
+            	else {
+            		vely = -1;
+                	character.positionY -= 60;
+				}
             }
 
             if (key == KeyEvent.VK_DOWN)

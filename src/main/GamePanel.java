@@ -1,7 +1,7 @@
 package main;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -30,13 +30,13 @@ public class GamePanel extends JPanel implements ActionListener {
 		timer.start();
 	}
 
-	@Override
-	protected void paintComponent(Graphics g) {
+	
+	protected void paintComponent(Graphics2D g) {
 		super.paintComponent(g);
 		drawAll(g);
 	}
 
-	public void drawAll(Graphics graphics) {
+	public void drawAll(Graphics2D graphics) {
 		// drawHere
 		Toolkit.getDefaultToolkit().sync();
 	}

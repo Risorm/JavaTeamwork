@@ -1,4 +1,4 @@
-
+package main;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,7 +17,7 @@ public class GamePanel extends JPanel implements ActionListener
 	Timer timer;
 	
 	public static final int WIDTH = 640, HEIGHT = 480;
-	
+	public static final String TITLE="AeroBlue-Platformer";
 	
 	public GamePanel() 
 	{

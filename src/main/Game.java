@@ -1,4 +1,4 @@
-
+package main;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -18,7 +18,7 @@ public class Game extends JFrame
 		
 		pack();
 		
-		setTitle("Test");
+		setTitle(GamePanel.TITLE);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}

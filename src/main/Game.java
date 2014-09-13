@@ -24,13 +24,11 @@ public class Game extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				JFrame game = new Game();
-				game.setVisible(true);
-				game.setFocusable(true);
-			}
-		});
+	public static void main(String[] args) 
+	{
+		Game game = new Game();
+		game.setVisible(true);
+		game.setFocusable(true);
 	}
 }
+

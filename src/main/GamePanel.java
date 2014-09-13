@@ -1,3 +1,4 @@
+package main;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -9,47 +10,40 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
 @SuppressWarnings("serial")
-public class GamePanel extends JPanel implements ActionListener
-{
+public class GamePanel extends JPanel implements ActionListener {
 	Image toDrawImage;
 	Timer timer;
-	
+
 	public static final int WIDTH = 640, HEIGHT = 480;
-	
-	
-	public GamePanel() 
-	{
+	public static String TITLE = "AeroBlue-Platformer";
+
+	public GamePanel() {
 		initGamePanel();
 	}
-	
-	private void initGamePanel()
-	{
-		setPreferredSize(new Dimension(WIDTH,HEIGHT));
+
+	private void initGamePanel() {
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		setDoubleBuffered(true);
-		
+
 		timer = new Timer(25, this);
 		timer.start();
 	}
-	
+
 	@Override
-	protected void paintComponent(Graphics g)
-	{
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 		drawAll(g);
 	}
-	
-	public void drawAll(Graphics graphics)
-	{
-		//drawHere
-		
+
+	public void drawAll(Graphics graphics) {
+		// drawHere
+
 		Toolkit.getDefaultToolkit().sync();
 	}
-	
-	public void actionPerformed(ActionEvent e) 
-	{
+
+	public void actionPerformed(ActionEvent e) {
 		repaint();
 	}
 }

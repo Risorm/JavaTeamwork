@@ -1,23 +1,23 @@
 package main;
-
 import javax.swing.JFrame;
 
-@SuppressWarnings("serial")
-public class Game extends JFrame {
-	public static final String TITLE = "AeroBlue-Platformer";
+public class Game extends JFrame 
+{
+	
+	public static final int WIDTH = 640, HEIGHT = 480;
+    public Game() 
+    {
+        add(new GamePanel());
 
-	public Game() {
-		add(new GamePanel());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(WIDTH, HEIGHT);
+        setLocationRelativeTo(null);
+        setTitle("R - Type");
+        setResizable(false);
+        setVisible(true);
+    }
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(640, 480);
-		setLocationRelativeTo(null);
-		setTitle(TITLE);
-		setResizable(false);
-		setVisible(true);
-	}
-
-	public static void main(String[] args) {
-		new Game();
-	}
+    public static void main(String[] args) {
+        new Game();
+    }
 }

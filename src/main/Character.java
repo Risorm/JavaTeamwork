@@ -12,12 +12,15 @@ public class Character
 	
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;
-	Image idle;
+	Image idleRightImage;
+	Image idleLeftImage;
 	
 	public Image currentImage;
 	boolean walkingRight;
 	boolean walkingLeft;
-	boolean stay;
+	
+	boolean idleLeft;
+	boolean idleRight;
 	
 	public void initImages()
 	{
@@ -26,17 +29,22 @@ public class Character
 		
 		for (int i = 1; i <= 3 ; i++)
 		{
-			walkRightAnimation.add(Utils.loadImage("res/walkRight" + i + ".png"));
-			walkLeftAnimation.add(Utils.loadImage("res/walkLeft" + i + ".png"));
+			walkRightAnimation.add(Utils.loadImage("walkRight" + i + ".png"));
+			walkLeftAnimation.add(Utils.loadImage("walkLeft" + i + ".png"));
 		}
-		idle = Utils.loadImage("res/idle.png");
+		idleRightImage = Utils.loadImage("idleRight.png");
+		idleLeftImage = Utils.loadImage("idleLeft.png");
 	}
 	
 	public void update()
 	{
-		if(stay == true)
+		if(idleRight == true)
 		{
-			currentImage = idle;
+			currentImage = idleRightImage;
+		}
+		else if(idleLeft == true)
+		{
+			currentImage = idleLeftImage;
 		}
 		else if(walkingRight == true)
 		{
@@ -50,7 +58,6 @@ public class Character
 		}
 		else if(walkingRight == false && walkingLeft == false)
 		{
-			currentImage = idle;
 			currentFrame = 0;
 		}
 		if(currentFrame >= 3)
@@ -63,8 +70,9 @@ public class Character
 		positionX = 0;
 		positionX = 0;
 		walkingLeft = walkingRight = false;
-		stay = true;
+		idleRight = true;
+		idleLeft = false;
 		currentFrame = 0;
-		currentImage = idle;
+		currentImage = idleRightImage;
 	}
 }

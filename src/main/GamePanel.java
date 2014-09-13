@@ -72,12 +72,14 @@ public class GamePanel extends JPanel implements ActionListener {
                 velx = -1;
                 character.walkingLeft = true;
                 character.walkingRight = false;
-                character.stay = false;
+                character.idleRight = false;
+            	character.idleLeft = false;
             }
 
             if (key == KeyEvent.VK_RIGHT) 
             {
-            	character.stay = false;
+            	character.idleRight = false;
+            	character.idleLeft = false;
             	velx = 1;
             	character.walkingLeft = false;
                 character.walkingRight = true;
@@ -101,20 +103,22 @@ public class GamePanel extends JPanel implements ActionListener {
             
             if (key == KeyEvent.VK_LEFT)
             {
-            	character.stay = true;
+            	character.idleRight = false;
+            	character.idleLeft = true;
                 velx = 0;
                 character.walkingLeft = false;
             }
             else if(key == KeyEvent.VK_RIGHT)
             {
-            	character.stay = true;
+            	character.idleRight = true;
+            	character.idleLeft = false;
             	velx = 0;
             	character.walkingRight = false;
             }
             if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) 
             {
             	vely = 0;
-            }         
+            }
         }
     }
 

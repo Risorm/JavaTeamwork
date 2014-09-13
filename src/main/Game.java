@@ -1,14 +1,14 @@
 package main;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Game extends Canvas implements Runnable {
+public class Game extends JPanel implements Runnable {
 	
 	
 	private static JFrame frame= new JFrame();
@@ -36,21 +36,12 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	public void render(){
-		BufferStrategy bs=this.getBufferStrategy();
-		if (bs==null) {
-			createBufferStrategy(3);
-			return;
-		}
-		Graphics g=bs.getDrawGraphics();
-		g.setColor(Color.GRAY);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
 		
-		renderBackgroud(g);
-		renderForeground(g);
 		
-		g.dispose();
 		
-		bs.show();
+		
+		
+		
 	}
 	
 	@Override
@@ -84,7 +75,7 @@ public class Game extends Canvas implements Runnable {
 				frames=0;
 			}
 		}
-		stop(); 
+		stop();
 	}
 	public static void main(String[] args) {
 		frame.setTitle(TITLE);

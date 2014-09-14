@@ -55,14 +55,14 @@ public class Character {
 		} else if (walkingRight == true) {
 			currentImage = walkRightAnimation.get(currentFrame);
 			delay++;
-			if (delay >= 3) {
+			if (delay >= 6) {
 				currentFrame++;
 				delay = 0;
 			}
 		} else if (walkingLeft == true) {
 			currentImage = walkLeftAnimation.get(currentFrame);
 			delay++;
-			if (delay >= 3) {
+			if (delay >= 6) {
 				currentFrame++;
 				delay = 0;
 			}

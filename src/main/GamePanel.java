@@ -12,7 +12,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-@SuppressWarnings("serial")
 public class GamePanel extends JPanel implements ActionListener {
 
 	private Timer timer;

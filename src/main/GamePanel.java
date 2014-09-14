@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	
 	Character character;
 	Enemy enemy;
+	Coin coin;
 	int velx = 0, vely = 0;
 	Map map;
 
@@ -31,6 +32,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		map = new Map();
 		enemy = new Enemy();
 		character = new Character();
+		coin = new Coin();
 		timer = new Timer(5, this);
 		timer.start();
 	}
@@ -45,6 +47,8 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.positionY, this);
 		g2d.drawImage(enemy.currentImage, enemy.positionX,
 				enemy.positionY, this);
+		g2d.drawImage(coin.currentImage, coin.positionX,
+				coin.positionY, this);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -55,6 +59,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		character.positionY += vely;
 		enemy.update();
 		character.update();
+		coin.update();
 		if (character.positionY < Game.HEIGHT - 90) {
 			character.positionY += 4;
 		}

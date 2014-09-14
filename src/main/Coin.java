@@ -13,9 +13,6 @@ public class Coin {
 
 	LinkedList<Image> rotateAnimation;
 
-	public Image currentImage;
-	boolean rotating;
-
 	public void initImages() {
 		rotateAnimation = new LinkedList<>();
 
@@ -26,13 +23,10 @@ public class Coin {
 	}
 
 	public void update() {
-		if (rotating == true) {
-			currentImage = rotateAnimation.get(currentFrame);
-			delay++;
-			if (delay >= 6) {
-				currentFrame++;
-				delay = 0;
-			}
+		delay++;
+		if (delay >= 12) {
+			currentFrame++;
+			delay = 0;
 		}
 		if (currentFrame >= 8)
 			currentFrame = 0;
@@ -43,7 +37,6 @@ public class Coin {
 		graphics.drawImage(rotateAnimation.get(currentFrame),rectangle.x,rectangle.y,null);
 	}
 	public Coin(int x, int y) {
-		rotating = true;
 		initImages();
 		rectangle = new Rectangle(x * 20,y * 20,20,20);
 		currentFrame = 0;

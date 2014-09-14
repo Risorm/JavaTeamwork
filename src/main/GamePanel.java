@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -25,7 +26,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	Enemy enemy;
 	int velx = 0, vely = 0;
 	Map map;
-	Coin coin;
+	ArrayList<Coin> coins;
 	public GamePanel() {
 
 		addKeyListener(new InputHandler());
@@ -33,7 +34,8 @@ public class GamePanel extends JPanel implements ActionListener {
 		setBackground(Color.BLACK);
 		setDoubleBuffered(true);
 
-		coin = new Coin(5, 7);
+		coins = new ArrayList<>();
+		coins.add(new Coin(5,20));
 		
 		map = new Map();
 		enemy = new Enemy(5,18,3);
@@ -49,13 +51,15 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		map.drawMap(g2d);
 		
-		coin.drawCoin(g2d);
+		for(Coin coin : coins)
+		{
+			coin.drawCoin(g2d);
+		}
 		
 		enemy.drawEnemy(g2d);
 		g2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
 		
-
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}
@@ -85,12 +89,24 @@ public class GamePanel extends JPanel implements ActionListener {
 				}
 			}
 		}
+		
 		/*if(character.rectangle.x + character.rectangle.width >= 320)
 		{
 			character.rectangle.x = 320 - character.rectangle.width;
 			map.updateMap(velx);
 		}*/
-		coin.update();
+		
+		for (int i = 0; i < coins.size(); i++) {
+			if(character.rectangle.intersects(coins.get(i).rectangle))
+			{
+				coins.remove(coins.get(i));
+			}
+		}
+		
+		for(Coin coin : coins)
+		{
+			coin.update();
+		}
 		enemy.update();
 		character.update();
 		repaint();

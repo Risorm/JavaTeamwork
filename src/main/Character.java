@@ -34,14 +34,14 @@ public class Character {
 
 		for (int i = 1; i <= 3; i++) {
 			walkRightAnimation.add(Utils
-					.loadImage("res/walkRight" + i + ".png"));
-			walkLeftAnimation.add(Utils.loadImage("res/walkLeft" + i + ".png"));
+					.loadImage("res/canimations/walkRight" + i + ".png"));
+			walkLeftAnimation.add(Utils.loadImage("res/canimations/walkLeft" + i + ".png"));
 			jumpRightAnimation.add(Utils
-					.loadImage("res/jumpRight" + i + ".png"));
-			jumpLeftAnimation.add(Utils.loadImage("res/jumpLeft" + i + ".png"));
+					.loadImage("res/canimations/jumpRight" + i + ".png"));
+			jumpLeftAnimation.add(Utils.loadImage("res/canimations/jumpLeft" + i + ".png"));
 		}
-		idleRightImage = Utils.loadImage("res/idleRight.png");
-		idleLeftImage = Utils.loadImage("res/idleLeft.png");
+		idleRightImage = Utils.loadImage("res/canimations/idleRight.png");
+		idleLeftImage = Utils.loadImage("res/canimations/idleLeft.png");
 	}
 
 	public void update() {

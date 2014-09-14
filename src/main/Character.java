@@ -1,12 +1,14 @@
 package main;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.LinkedList;
 
 public class Character {
 	public int positionX;
 	public int positionY;
-
+	public Rectangle rectangle;
+	
 	int currentFrame;
 	int delay = 0;
 
@@ -77,12 +79,14 @@ public class Character {
 		}
 		if (currentFrame >= 3)
 			currentFrame = 0;
+		
 	}
 
 	public Character() {
 		initImages();
 		positionX = 0;
 		positionY = 0;
+		rectangle = new Rectangle(0,0,idleLeftImage.getWidth(null),idleLeftImage.getHeight(null));
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
 		idleRight = idleLeft = false;

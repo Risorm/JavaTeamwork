@@ -1,10 +1,13 @@
 package main;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Scanner;
+
+import com.sun.accessibility.internal.resources.accessibility;
 
 public class Map
 {
@@ -26,7 +29,7 @@ public class Map
 				String tempLine = scanner.nextLine();
 				for (int x = 0; x < tempLine.length(); x++) 
 				{
-					tiles.add(new Tile(x,y,tempLine.charAt(x)));
+					tiles.add(new Tile(x * 20,y * 20,tempLine.charAt(x)));
 				}
 				y++;
 			}
@@ -42,27 +45,30 @@ public class Map
 	{
 		for(Tile tile : tiles)
 		{
-			graphics.setColor(tile.color);
-			graphics.fillRect(tile.x * 20, tile.y * 20, 20, 20);
+			graphics.drawImage(tile.tileImage,tile.tileRectangle.x , tile.tileRectangle.y, null);
 		}
 	}
 }
 
 class Tile
 {
-	public Rectangle rectangle;
+	public Rectangle tileRectangle;
 	public int x,y;
 	public Color color;
+	public boolean collidable;
+	public Image tileImage;
 	
 	public Tile(int x,int y,char type)
 	{
-		this.x = x;
-		this.y = y;
-		if(type == 'B')
-			color = Color.BLACK;
-		else if(type == 'G')
-			color = Color.GREEN;
-		else if(type == '.')
-			color = Color.WHITE;
+		
+		//this.x = x;
+		//this.y = y;
+		tileImage = Utils.loadImage("res/tiles/" + type + ".png");
+		tileRectangle = new Rectangle(x,y,tileImage.getWidth(null),tileImage.getHeight(null));
+		
+		if(type == 'V' || type == 'Z')
+			collidable = true;
+		else
+			collidable = false;
 	}
 }

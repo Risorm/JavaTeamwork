@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,8 +42,8 @@ public class GamePanel extends JPanel implements ActionListener {
 		Graphics2D g2d = (Graphics2D) g;
 
 		map.drawMap(g2d);
-		g2d.drawImage(character.currentImage, character.positionX,
-				character.positionY, this);
+		g2d.drawImage(character.currentImage, character.rectangle.x,
+				character.rectangle.y, this);
 		g2d.drawImage(enemy.currentImage, enemy.positionX,
 				enemy.positionY, this);
 
@@ -51,19 +52,32 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		character.positionX += velx;
-		character.positionY += vely;
-		enemy.update();
+		character.rectangle.x += velx;
+		for(int i = 0; i < map.tiles.size();i++)
+		{
+			if(map.tiles.get(i).collidable == true)
+			{
+				if(character.rectangle.intersects(map.tiles.get(i).tileRectangle))
+				{
+					character.rectangle.x -= velx;
+				}
+			}
+		}
+		
+		character.rectangle.y += 2;
+		for(int i = 0; i < map.tiles.size();i++)
+		{
+			if(map.tiles.get(i).collidable == true)
+			{
+				if(character.rectangle.intersects(map.tiles.get(i).tileRectangle))
+				{
+					character.rectangle.y -= 2;
+					if(character.isJumping == true)
+						character.isJumping = false;
+				}
+			}
+		}
 		character.update();
-		if (character.positionY < Game.HEIGHT - 90) {
-			character.positionY += 4;
-		}
-		if (character.positionY >= Game.HEIGHT - 90) {
-			character.isJumping = false;
-		}
-		if (enemy.positionY < Game.HEIGHT - 90) {
-			enemy.positionY += 4;
-		}
 		repaint();
 	}
 
@@ -77,8 +91,8 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = false;
 				character.idleRight = false;
 				character.idleLeft = false;
-				character.jumpingLeft = true;
-				character.jumpingRight = true;
+				//character.jumpingLeft = true;
+				//character.jumpingRight = true;
 			}
 
 			if (key == KeyEvent.VK_RIGHT) {
@@ -87,14 +101,14 @@ public class GamePanel extends JPanel implements ActionListener {
 				velx = 1;
 				character.walkingLeft = false;
 				character.walkingRight = true;
-				character.jumpingRight = true;
-				character.jumpingLeft = true;
+				//character.jumpingRight = true;
+				//character.jumpingLeft = true;
 			}
 
 			if (key == KeyEvent.VK_UP) {
 				if (character.isJumping == false) {
 					character.isJumping = true;
-					character.positionY -= 60;
+					character.rectangle.y -= character.rectangle.height * 2;
 				} else if (character.isJumping == true) {
 					character.jumpingLeft = false;
 					character.jumpingRight = true;
@@ -118,7 +132,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = false;
 				character.jumpingRight = false;
 			}
-			if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) {
+			if (key == KeyEvent.VK_UP) {
 				vely = 0;
 				character.jumpingRight = character.jumpingLeft = false;
 			}

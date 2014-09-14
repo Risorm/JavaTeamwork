@@ -1,6 +1,6 @@
 package main;
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.File;
 import java.util.LinkedList;
@@ -38,7 +38,7 @@ public class Map
 		}
 	}
 	
-	public void drawMap(Graphics graphics)
+	public void drawMap(Graphics2D graphics)
 	{
 		for(Tile tile : tiles)
 		{

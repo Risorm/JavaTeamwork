@@ -39,7 +39,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		Graphics2D g2d = (Graphics2D) g;
 
-		map.drawMap(g);
+		map.drawMap(g2d);
 		g2d.drawImage(character.currentImage, character.positionX,
 				character.positionY, this);
 

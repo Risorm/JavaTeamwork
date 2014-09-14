@@ -32,8 +32,8 @@ public class Enemy {
 			walkLeftAnimation.add(Utils.loadImage("res/eanimations/walkLeft"
 					+ i + ".png"));
 		}
-		idleRightImage = Utils.loadImage("res/åanimations/idleRight.png");
-		idleLeftImage = Utils.loadImage("res/åanimations/idleLeft.png");
+		idleRightImage = Utils.loadImage("res/eanimations/idleRight.png");
+		idleLeftImage = Utils.loadImage("res/eanimations/idleLeft.png");
 	}
 
 	public void update() {

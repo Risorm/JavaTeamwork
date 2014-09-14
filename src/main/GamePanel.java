@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	Enemy enemy;
 	int velx = 0, vely = 0;
 	Map map;
-
+	Coin coin;
 	public GamePanel() {
 
 		addKeyListener(new InputHandler());
@@ -33,8 +33,10 @@ public class GamePanel extends JPanel implements ActionListener {
 		setBackground(Color.BLACK);
 		setDoubleBuffered(true);
 
+		coin = new Coin(5, 7);
+		
 		map = new Map();
-		enemy = new Enemy(5,20,3);
+		enemy = new Enemy(5,18,3);
 		character = new Character();
 		timer = new Timer(5, this);
 		timer.start();
@@ -46,6 +48,8 @@ public class GamePanel extends JPanel implements ActionListener {
 		Graphics2D g2d = (Graphics2D) g;
 
 		map.drawMap(g2d);
+		
+		coin.drawCoin(g2d);
 		
 		enemy.drawEnemy(g2d);
 		g2d.drawImage(character.currentImage, character.rectangle.x,
@@ -86,6 +90,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			character.rectangle.x = 320 - character.rectangle.width;
 			map.updateMap(velx);
 		}*/
+		coin.update();
 		enemy.update();
 		character.update();
 		repaint();

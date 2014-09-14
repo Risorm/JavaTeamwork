@@ -14,10 +14,6 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import jdk.internal.org.objectweb.asm.tree.JumpInsnNode;
-
-import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
-
 public class GamePanel extends JPanel implements ActionListener {
 
 	private Timer timer;
@@ -36,7 +32,6 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		coins = new ArrayList<>();
 		coins.add(new Coin(5,20));
-		
 		map = new Map();
 		enemy = new Enemy(5,18,3);
 		character = new Character();
@@ -47,17 +42,17 @@ public class GamePanel extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		Graphics2D g2d = (Graphics2D) g;
+		Graphics2D graphics2d = (Graphics2D) g;
 
-		map.drawMap(g2d);
+		map.drawMap(graphics2d);
 		
 		for(Coin coin : coins)
 		{
-			coin.drawCoin(g2d);
+			coin.drawCoin(graphics2d);
 		}
 		
-		enemy.drawEnemy(g2d);
-		g2d.drawImage(character.currentImage, character.rectangle.x,
+		enemy.drawEnemy(graphics2d);
+		graphics2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
 		
 		Toolkit.getDefaultToolkit().sync();
@@ -65,6 +60,11 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		/*if(character.isJumping == true && character.landed == false)
+		{
+			vely = -8;
+		}*/
+		vely = 2;
 		character.rectangle.x += velx;
 		for(int i = 0; i < map.tiles.size();i++)
 		{
@@ -76,7 +76,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				}
 			}
 		}
-		character.rectangle.y += 2;
+		character.rectangle.y += vely;
 		for(int i = 0; i < map.tiles.size();i++)
 		{
 			if(map.tiles.get(i).collidable == true)
@@ -85,17 +85,11 @@ public class GamePanel extends JPanel implements ActionListener {
 				{
 					if(character.isJumping == true)
 						character.isJumping = false;
-					character.rectangle.y -=2 ;
+					character.rectangle.y -= vely;
 				}
 			}
 		}
-		
-		/*if(character.rectangle.x + character.rectangle.width >= 320)
-		{
-			character.rectangle.x = 320 - character.rectangle.width;
-			map.updateMap(velx);
-		}*/
-		
+		//animation
 		for (int i = 0; i < coins.size(); i++) {
 			if(character.rectangle.intersects(coins.get(i).rectangle))
 			{
@@ -117,11 +111,13 @@ public class GamePanel extends JPanel implements ActionListener {
 			int key = e.getKeyCode();
 
 			if (key == KeyEvent.VK_LEFT) {
-				velx = -1;
-				character.walkingLeft = true;
-				character.walkingRight = false;
 				character.idleRight = false;
 				character.idleLeft = false;
+				
+				character.walkingLeft = true;
+				character.walkingRight = false;
+				
+				velx = -1;
 				//character.jumpingLeft = true;
 				//character.jumpingRight = true;
 			}
@@ -129,9 +125,11 @@ public class GamePanel extends JPanel implements ActionListener {
 			if (key == KeyEvent.VK_RIGHT) {
 				character.idleRight = false;
 				character.idleLeft = false;
-				velx = 1;
+				
 				character.walkingLeft = false;
 				character.walkingRight = true;
+				
+				velx = 1;
 				//character.jumpingRight = true;
 				//character.jumpingLeft = true;
 			}
@@ -139,11 +137,9 @@ public class GamePanel extends JPanel implements ActionListener {
 			if (key == KeyEvent.VK_UP) {
 				if (character.isJumping == false) {
 					character.isJumping = true;
-					//character.rectangle.y -= character.rectangle.height * 2;
-				} else if (character.isJumping == true) {
-					character.jumpingLeft = false;
-					character.jumpingRight = true;
-				}
+					//character.landed = false;
+					character.rectangle.y -= character.rectangle.height * 2;
+				} 
 			}
 		}
 
@@ -153,19 +149,23 @@ public class GamePanel extends JPanel implements ActionListener {
 			if (key == KeyEvent.VK_LEFT) {
 				character.idleRight = false;
 				character.idleLeft = true;
-				velx = 0;
+				
 				character.walkingLeft = false;
 				character.jumpingLeft = false;
-			} else if (key == KeyEvent.VK_RIGHT) {
+				
+				velx = 0;
+			} 
+			else if (key == KeyEvent.VK_RIGHT) {
 				character.idleRight = true;
 				character.idleLeft = false;
-				velx = 0;
+				
 				character.walkingRight = false;
 				character.jumpingRight = false;
+				
+				velx = 0;
 			}
 			if (key == KeyEvent.VK_UP) {
 				vely = 0;
-				character.jumpingRight = character.jumpingLeft = false;
 			}
 		}
 	}

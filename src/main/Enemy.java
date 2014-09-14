@@ -13,17 +13,10 @@ public class Enemy {
 	int startPositionX = 0;
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;
-	//Image idleRightImage;
-	//Image idleLeftImage;
-	
 	int radius;
 	
-	public Image currentImage;
 	boolean walkingRight;
 	boolean walkingLeft;
-
-	//boolean idleLeft;
-	//boolean idleRight;
 
 	public void initImages() {
 		walkRightAnimation = new LinkedList<>();
@@ -40,14 +33,12 @@ public class Enemy {
 	public void update() {
 		updateMovement();
 		if (walkingRight == true) {
-			currentImage = walkRightAnimation.get(currentFrame);
 			delay++;
 			if (delay >= 6) {
 				currentFrame++;
 				delay = 0;
 			}
 		} else if (walkingLeft == true) {
-			currentImage = walkLeftAnimation.get(currentFrame);
 			delay++;
 			if (delay >= 6) {
 				currentFrame++;
@@ -90,10 +81,7 @@ public class Enemy {
 		walkingLeft = false;
 		walkingRight = true;
 		startPositionX = x * 20;
-		//idleRight = true;
-		//idleLeft = false;
 		currentFrame = 0;
 		this.radius = radius * 20;
-		//currentImage = idleRightImage;
 	}
 }

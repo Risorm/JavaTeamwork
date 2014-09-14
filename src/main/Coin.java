@@ -43,6 +43,7 @@ public class Coin {
 		graphics.drawImage(rotateAnimation.get(currentFrame),rectangle.x,rectangle.y,null);
 	}
 	public Coin(int x, int y) {
+		rotating = true;
 		initImages();
 		rectangle = new Rectangle(x * 20,y * 20,20,20);
 		currentFrame = 0;

@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -11,121 +12,105 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
 public class GamePanel extends JPanel implements ActionListener {
 
-    private Timer timer;
+	private Timer timer;
 
-    Character character;
-    int velx = 0, vely = 0;
-    Map map;
-    public GamePanel() {
+	Character character;
+	int velx = 0, vely = 0;
+	Map map;
 
-        addKeyListener(new InputHandler());
-        setFocusable(true);
-        setBackground(Color.BLACK);
-        setDoubleBuffered(true);
-        
-        map = new Map();
-        System.out.println(map.tiles.size());
-        character = new Character();
-        timer = new Timer(5, this);
-        timer.start();
-    }
+	public GamePanel() {
 
+		addKeyListener(new InputHandler());
+		setFocusable(true);
+		setBackground(Color.BLACK);
+		setDoubleBuffered(true);
 
-    public void paint(Graphics g) {
-        super.paint(g);
+		map = new Map();
+		System.out.println(map.tiles.size());
+		character = new Character();
+		timer = new Timer(5, this);
+		timer.start();
+	}
 
-        Graphics2D g2d = (Graphics2D)g;
-      
-        
-        map.drawMap(g);
-        g2d.drawImage(character.currentImage, character.positionX, character.positionY, this);
-       
-        Toolkit.getDefaultToolkit().sync();
-        g.dispose();
-    }
+	public void paint(Graphics g) {
+		super.paint(g);
 
+		Graphics2D g2d = (Graphics2D) g;
 
-    public void actionPerformed(ActionEvent e) 
-    {
-    	character.positionX += velx;
-    	character.positionY += vely;
-    	character.update();
-    	if(character.positionY < Game.HEIGHT - 85)
-    	{
-    		character.positionY += 4;
-    	}
-    	if(character.positionY >= Game.HEIGHT - 85)
-        {
-         character.isJumping = false;
-        }
-        repaint();  
-    }
-    
-    private class InputHandler extends KeyAdapter
-    {
-    	public void keyPressed(KeyEvent e)
-        {
-        	int key = e.getKeyCode();
-        	
-        	if (key == KeyEvent.VK_LEFT)
-            {
-                velx = -1;
-                character.walkingLeft = true;
-                character.walkingRight = false;
-                character.idleRight = false;
-            	character.idleLeft = false;
-            }
+		map.drawMap(g);
+		g2d.drawImage(character.currentImage, character.positionX,
+				character.positionY, this);
 
-            if (key == KeyEvent.VK_RIGHT) 
-            {
-            	character.idleRight = false;
-            	character.idleLeft = false;
-            	velx = 1;
-            	character.walkingLeft = false;
-                character.walkingRight = true;
-            }
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
+	}
 
-            if (key == KeyEvent.VK_UP) 
-            {
-            	if(character.isJumping == false)
-                {
-                 character.isJumping = true;
-                 character.positionY -= 60;
-                }
-            }
+	public void actionPerformed(ActionEvent e) {
+		character.positionX += velx;
+		character.positionY += vely;
+		character.update();
+		if (character.positionY < Game.HEIGHT - 90) {
+			character.positionY += 4;
+		}
+		if (character.positionY >= Game.HEIGHT - 90) {
+			character.isJumping = false;
+		}
+		repaint();
+	}
 
-            if (key == KeyEvent.VK_DOWN)
-            {
-            	vely = 1;
-            }
-        }
-    	
-        public void keyReleased(KeyEvent e) 
-        {
-        	int key = e.getKeyCode();
-            
-            if (key == KeyEvent.VK_LEFT)
-            {
-            	character.idleRight = false;
-            	character.idleLeft = true;
-                velx = 0;
-                character.walkingLeft = false;
-            }
-            else if(key == KeyEvent.VK_RIGHT)
-            {
-            	character.idleRight = true;
-            	character.idleLeft = false;
-            	velx = 0;
-            	character.walkingRight = false;
-            }
-            if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) 
-            {
-            	vely = 0;
-            }
-        }
-    }
+	private class InputHandler extends KeyAdapter {
+		public void keyPressed(KeyEvent e) {
+			int key = e.getKeyCode();
+
+			if (key == KeyEvent.VK_LEFT) {
+				velx = -1;
+				character.walkingLeft = true;
+				character.walkingRight = false;
+				character.idleRight = false;
+				character.idleLeft = false;
+				character.jumpingLeft = true;
+				character.jumpingRight = false;
+
+			}
+
+			if (key == KeyEvent.VK_RIGHT) {
+				character.idleRight = false;
+				character.idleLeft = false;
+				velx = 1;
+				character.walkingLeft = false;
+				character.walkingRight = true;
+				character.jumpingLeft = false;
+				character.jumpingRight = true;
+			}
+
+			if (key == KeyEvent.VK_UP) {
+				if (character.isJumping == false) {
+					character.isJumping = true;
+					character.positionY -= 60;
+				}
+			}
+		}
+
+		public void keyReleased(KeyEvent e) {
+			int key = e.getKeyCode();
+
+			if (key == KeyEvent.VK_LEFT) {
+				character.idleRight = false;
+				character.idleLeft = true;
+				velx = 0;
+				character.walkingLeft = false;
+			} else if (key == KeyEvent.VK_RIGHT) {
+				character.idleRight = true;
+				character.idleLeft = false;
+				velx = 0;
+				character.walkingRight = false;
+			}
+			if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) {
+				vely = 0;
+			}
+		}
+	}
 
 }

@@ -1,12 +1,14 @@
 package main;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.LinkedList;
 
 public class Enemy {
 	public int positionX;
 	public int positionY;
-
+	
+	public Rectangle rectangle;
 	int currentFrame;
 	int delay = 0;
 
@@ -14,7 +16,7 @@ public class Enemy {
 	LinkedList<Image> walkLeftAnimation;
 	Image idleRightImage;
 	Image idleLeftImage;
-
+	
 	public Image currentImage;
 	boolean walkingRight;
 	boolean walkingLeft;

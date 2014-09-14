@@ -53,16 +53,12 @@ public class Map
 class Tile
 {
 	public Rectangle tileRectangle;
-	public int x,y;
 	public Color color;
 	public boolean collidable;
 	public Image tileImage;
 	
 	public Tile(int x,int y,char type)
 	{
-		
-		//this.x = x;
-		//this.y = y;
 		tileImage = Utils.loadImage("res/tiles/" + type + ".png");
 		tileRectangle = new Rectangle(x,y,tileImage.getWidth(null),tileImage.getHeight(null));
 		

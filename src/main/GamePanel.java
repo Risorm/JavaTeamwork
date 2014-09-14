@@ -13,6 +13,10 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import jdk.internal.org.objectweb.asm.tree.JumpInsnNode;
+
+import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
+
 public class GamePanel extends JPanel implements ActionListener {
 
 	private Timer timer;
@@ -30,7 +34,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 
 		map = new Map();
-		enemy = new Enemy();
+		enemy = new Enemy(5,20,5);
 		character = new Character();
 		timer = new Timer(5, this);
 		timer.start();
@@ -44,8 +48,8 @@ public class GamePanel extends JPanel implements ActionListener {
 		map.drawMap(g2d);
 		g2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
-		g2d.drawImage(enemy.currentImage, enemy.positionX,
-				enemy.positionY, this);
+		g2d.drawImage(enemy.currentImage, enemy.rectangle.x,
+				enemy.rectangle.y, this);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -63,7 +67,6 @@ public class GamePanel extends JPanel implements ActionListener {
 				}
 			}
 		}
-		
 		character.rectangle.y += 2;
 		for(int i = 0; i < map.tiles.size();i++)
 		{
@@ -71,12 +74,18 @@ public class GamePanel extends JPanel implements ActionListener {
 			{
 				if(character.rectangle.intersects(map.tiles.get(i).tileRectangle))
 				{
-					character.rectangle.y -= 2;
 					if(character.isJumping == true)
 						character.isJumping = false;
+					character.rectangle.y -=2 ;
 				}
 			}
 		}
+		/*if(character.rectangle.x + character.rectangle.width >= 320)
+		{
+			character.rectangle.x = 320 - character.rectangle.width;
+			map.updateMap(velx);
+		}*/
+		
 		character.update();
 		repaint();
 	}
@@ -108,7 +117,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			if (key == KeyEvent.VK_UP) {
 				if (character.isJumping == false) {
 					character.isJumping = true;
-					character.rectangle.y -= character.rectangle.height * 2;
+					//character.rectangle.y -= character.rectangle.height * 2;
 				} else if (character.isJumping == true) {
 					character.jumpingLeft = false;
 					character.jumpingRight = true;

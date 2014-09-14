@@ -25,8 +25,11 @@ public class Character {
 	boolean idleRight;
 	boolean jumpingRight;
 	boolean jumpingLeft;
+	
+	boolean collidedWithOrReached;
 	boolean isJumping;
-
+	
+	
 	public void initImages() {
 		walkRightAnimation = new LinkedList<>();
 		walkLeftAnimation = new LinkedList<>();
@@ -85,6 +88,7 @@ public class Character {
 		rectangle = new Rectangle(0,0,idleLeftImage.getWidth(null),idleLeftImage.getHeight(null));
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
+		collidedWithOrReached = false;
 		idleRight = idleLeft = false;
 		currentFrame = 0;
 		currentImage = idleRightImage;

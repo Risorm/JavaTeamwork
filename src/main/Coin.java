@@ -1,12 +1,12 @@
 package main;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.LinkedList;
 
 public class Coin {
-	public int positionX;
-	public int positionY;
-
+	
+	Rectangle rectangle;
 	int currentFrame;
 	int delay = 0;
 
@@ -22,7 +22,6 @@ public class Coin {
 			rotateAnimation.add(Utils.loadImage("res/coinanimations/goldCoin" + i
 					+ ".png"));
 		}
-
 	}
 
 	public void update() {
@@ -38,11 +37,9 @@ public class Coin {
 			currentFrame = 0;
 	}
 
-	public Coin() {
+	public Coin(int x, int y) {
 		initImages();
-		positionX = 300;
-		positionY = 60;
+		rectangle = new Rectangle(x * 20,y * 20,20,20);
 		currentFrame = 0;
-		//currentImage = 
 	}
 }

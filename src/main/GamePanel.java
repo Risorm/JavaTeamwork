@@ -28,7 +28,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 
 		map = new Map();
-		System.out.println(map.tiles.size());
 		character = new Character();
 		timer = new Timer(5, this);
 		timer.start();

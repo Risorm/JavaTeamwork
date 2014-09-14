@@ -15,8 +15,9 @@ import javax.swing.Timer;
 public class GamePanel extends JPanel implements ActionListener {
 
 	private Timer timer;
-
+	
 	Character character;
+	Enemy enemy;
 	int velx = 0, vely = 0;
 	Map map;
 
@@ -28,6 +29,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 
 		map = new Map();
+		enemy = new Enemy();
 		character = new Character();
 		timer = new Timer(5, this);
 		timer.start();
@@ -41,6 +43,8 @@ public class GamePanel extends JPanel implements ActionListener {
 		map.drawMap(g2d);
 		g2d.drawImage(character.currentImage, character.positionX,
 				character.positionY, this);
+		g2d.drawImage(enemy.currentImage, enemy.positionX,
+				enemy.positionY, this);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -49,12 +53,16 @@ public class GamePanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		character.positionX += velx;
 		character.positionY += vely;
+		enemy.update();
 		character.update();
 		if (character.positionY < Game.HEIGHT - 90) {
 			character.positionY += 4;
 		}
 		if (character.positionY >= Game.HEIGHT - 90) {
 			character.isJumping = false;
+		}
+		if (enemy.positionY < Game.HEIGHT - 90) {
+			enemy.positionY += 4;
 		}
 		repaint();
 	}

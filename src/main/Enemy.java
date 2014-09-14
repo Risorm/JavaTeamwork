@@ -3,7 +3,7 @@ package main;
 import java.awt.Image;
 import java.util.LinkedList;
 
-public class Character {
+public class Enemy {
 	public int positionX;
 	public int positionY;
 
@@ -12,8 +12,6 @@ public class Character {
 
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;
-	LinkedList<Image> jumpRightAnimation;
-	LinkedList<Image> jumpLeftAnimation;
 	Image idleRightImage;
 	Image idleLeftImage;
 
@@ -23,28 +21,19 @@ public class Character {
 
 	boolean idleLeft;
 	boolean idleRight;
-	boolean jumpingRight;
-	boolean jumpingLeft;
-	boolean isJumping;
 
 	public void initImages() {
 		walkRightAnimation = new LinkedList<>();
 		walkLeftAnimation = new LinkedList<>();
-		jumpRightAnimation = new LinkedList<>();
-		jumpLeftAnimation = new LinkedList<>();
 
 		for (int i = 1; i <= 3; i++) {
-			walkRightAnimation.add(Utils.loadImage("res/canimations/walkRight"
+			walkRightAnimation.add(Utils.loadImage("res/eanimations/walkRight"
 					+ i + ".png"));
-			walkLeftAnimation.add(Utils.loadImage("res/canimations/walkLeft"
-					+ i + ".png"));
-			jumpRightAnimation.add(Utils.loadImage("res/canimations/jumpRight"
-					+ i + ".png"));
-			jumpLeftAnimation.add(Utils.loadImage("res/canimations/jumpLeft"
+			walkLeftAnimation.add(Utils.loadImage("res/eanimations/walkLeft"
 					+ i + ".png"));
 		}
-		idleRightImage = Utils.loadImage("res/canimations/idleRight.png");
-		idleLeftImage = Utils.loadImage("res/canimations/idleLeft.png");
+		idleRightImage = Utils.loadImage("res/åanimations/idleRight.png");
+		idleLeftImage = Utils.loadImage("res/åanimations/idleLeft.png");
 	}
 
 	public void update() {
@@ -66,12 +55,6 @@ public class Character {
 				currentFrame++;
 				delay = 0;
 			}
-		} else if (jumpingRight == true) {
-			currentImage = jumpRightAnimation.get(currentFrame);
-			currentFrame++;
-		} else if (jumpingLeft == true) {
-			currentImage = jumpLeftAnimation.get(currentFrame);
-			currentFrame++;
 		} else if (walkingRight == false && walkingLeft == false) {
 			currentFrame = 0;
 		}
@@ -79,13 +62,13 @@ public class Character {
 			currentFrame = 0;
 	}
 
-	public Character() {
+	public Enemy () {
 		initImages();
-		positionX = 0;
+		positionX = 200;
 		positionY = 0;
 		walkingLeft = walkingRight = false;
-		jumpingRight = jumpingLeft = false;
-		idleRight = idleLeft = false;
+		idleRight = true;
+		idleLeft = false;
 		currentFrame = 0;
 		currentImage = idleRightImage;
 	}

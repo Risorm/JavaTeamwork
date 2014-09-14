@@ -13,6 +13,7 @@ Project Description: A single level of a 2D platformer with environment and mons
  - Sprites 
  	- http://opengameart.org/content/2d-complete-kit
  	- http://www.cgtextures.com/
+	- http://opengameart.org/content/sci-fi-platform-tiles
  - 3 classes:
 	- utils;
 	- character;

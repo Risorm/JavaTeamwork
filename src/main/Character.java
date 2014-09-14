@@ -8,6 +8,7 @@ public class Character {
 	public int positionY;
 
 	int currentFrame;
+	int delay = 0;
 
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;
@@ -33,12 +34,14 @@ public class Character {
 		jumpLeftAnimation = new LinkedList<>();
 
 		for (int i = 1; i <= 3; i++) {
-			walkRightAnimation.add(Utils
-					.loadImage("res/canimations/walkRight" + i + ".png"));
-			walkLeftAnimation.add(Utils.loadImage("res/canimations/walkLeft" + i + ".png"));
-			jumpRightAnimation.add(Utils
-					.loadImage("res/canimations/jumpRight" + i + ".png"));
-			jumpLeftAnimation.add(Utils.loadImage("res/canimations/jumpLeft" + i + ".png"));
+			walkRightAnimation.add(Utils.loadImage("res/canimations/walkRight"
+					+ i + ".png"));
+			walkLeftAnimation.add(Utils.loadImage("res/canimations/walkLeft"
+					+ i + ".png"));
+			jumpRightAnimation.add(Utils.loadImage("res/canimations/jumpRight"
+					+ i + ".png"));
+			jumpLeftAnimation.add(Utils.loadImage("res/canimations/jumpLeft"
+					+ i + ".png"));
 		}
 		idleRightImage = Utils.loadImage("res/canimations/idleRight.png");
 		idleLeftImage = Utils.loadImage("res/canimations/idleLeft.png");
@@ -51,10 +54,18 @@ public class Character {
 			currentImage = idleLeftImage;
 		} else if (walkingRight == true) {
 			currentImage = walkRightAnimation.get(currentFrame);
-			currentFrame++;
+			delay++;
+			if (delay >= 6) {
+				currentFrame++;
+				delay = 0;
+			}
 		} else if (walkingLeft == true) {
 			currentImage = walkLeftAnimation.get(currentFrame);
-			currentFrame++;
+			delay++;
+			if (delay >= 6) {
+				currentFrame++;
+				delay = 0;
+			}
 		} else if (jumpingRight == true) {
 			currentImage = jumpRightAnimation.get(currentFrame);
 			currentFrame++;

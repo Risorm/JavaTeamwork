@@ -30,6 +30,7 @@ public class Character {
 		walkRightAnimation = new LinkedList<>();
 		walkLeftAnimation = new LinkedList<>();
 		jumpRightAnimation = new LinkedList<>();
+		jumpLeftAnimation = new LinkedList<>();
 
 		for (int i = 1; i <= 3; i++) {
 			walkRightAnimation.add(Utils

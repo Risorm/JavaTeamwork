@@ -71,8 +71,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.idleRight = false;
 				character.idleLeft = false;
 				character.jumpingLeft = true;
-				character.jumpingRight = false;
-
+				character.jumpingRight = true;
 			}
 
 			if (key == KeyEvent.VK_RIGHT) {
@@ -81,14 +80,17 @@ public class GamePanel extends JPanel implements ActionListener {
 				velx = 1;
 				character.walkingLeft = false;
 				character.walkingRight = true;
-				character.jumpingLeft = false;
 				character.jumpingRight = true;
+				character.jumpingLeft = true;
 			}
 
 			if (key == KeyEvent.VK_UP) {
 				if (character.isJumping == false) {
 					character.isJumping = true;
 					character.positionY -= 60;
+				} else if (character.isJumping == true) {
+					character.jumpingLeft = false;
+					character.jumpingRight = true;
 				}
 			}
 		}
@@ -101,14 +103,17 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.idleLeft = true;
 				velx = 0;
 				character.walkingLeft = false;
+				character.jumpingLeft = false;
 			} else if (key == KeyEvent.VK_RIGHT) {
 				character.idleRight = true;
 				character.idleLeft = false;
 				velx = 0;
 				character.walkingRight = false;
+				character.jumpingRight = false;
 			}
 			if (key == KeyEvent.VK_UP || key == KeyEvent.VK_DOWN) {
 				vely = 0;
+				character.jumpingRight = character.jumpingLeft = false;
 			}
 		}
 	}

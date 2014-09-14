@@ -1,28 +1,29 @@
 package main;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
 public class Enemy {
-	public int positionX;
-	public int positionY;
 	
 	public Rectangle rectangle;
 	int currentFrame;
 	int delay = 0;
-
+	int startPositionX = 0;
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;
-	Image idleRightImage;
-	Image idleLeftImage;
+	//Image idleRightImage;
+	//Image idleLeftImage;
+	
+	int radius;
 	
 	public Image currentImage;
 	boolean walkingRight;
 	boolean walkingLeft;
 
-	boolean idleLeft;
-	boolean idleRight;
+	//boolean idleLeft;
+	//boolean idleRight;
 
 	public void initImages() {
 		walkRightAnimation = new LinkedList<>();
@@ -34,16 +35,11 @@ public class Enemy {
 			walkLeftAnimation.add(Utils.loadImage("res/eanimations/walkLeft"
 					+ i + ".png"));
 		}
-		idleRightImage = Utils.loadImage("res/eanimations/idleRight.png");
-		idleLeftImage = Utils.loadImage("res/eanimations/idleLeft.png");
 	}
 
 	public void update() {
-		if (idleRight == true) {
-			currentImage = idleRightImage;
-		} else if (idleLeft == true) {
-			currentImage = idleLeftImage;
-		} else if (walkingRight == true) {
+		updateMovement();
+		if (walkingRight == true) {
 			currentImage = walkRightAnimation.get(currentFrame);
 			delay++;
 			if (delay >= 6) {
@@ -63,15 +59,41 @@ public class Enemy {
 		if (currentFrame >= 3)
 			currentFrame = 0;
 	}
-
-	public Enemy () {
+	public void drawEnemy(Graphics2D graphics)
+	{
+		if(walkingLeft == true)
+			graphics.drawImage(walkLeftAnimation.get(currentFrame),rectangle.x,rectangle.y,null);
+		else if(walkingRight == true)
+			graphics.drawImage(walkRightAnimation.get(currentFrame),rectangle.x,rectangle.y,null);
+	}
+	public void updateMovement()
+	{
+		if(walkingRight == true)
+			rectangle.x += 1;
+		if(rectangle.x + rectangle.width >= startPositionX + rectangle.width + radius)
+		{
+			walkingRight = false;
+			walkingLeft = true;
+		}
+		if(walkingLeft == true)
+			rectangle.x -= 1;
+		if(rectangle.x <= startPositionX - radius)
+		{
+			walkingRight = true;
+			walkingLeft = false;
+		}
+	}
+	
+	public Enemy (int x, int y,int radius) {
 		initImages();
-		positionX = 200;
-		positionY = 0;
-		walkingLeft = walkingRight = false;
-		idleRight = true;
-		idleLeft = false;
+		rectangle = new Rectangle(x * 20, y * 20, 40,60);
+		walkingLeft = false;
+		walkingRight = true;
+		startPositionX = x * 20;
+		//idleRight = true;
+		//idleLeft = false;
 		currentFrame = 0;
-		currentImage = idleRightImage;
+		this.radius = radius * 20;
+		//currentImage = idleRightImage;
 	}
 }

@@ -48,6 +48,13 @@ public class Map
 			graphics.drawImage(tile.tileImage,tile.tileRectangle.x , tile.tileRectangle.y, null);
 		}
 	}
+	public void updateMap(int movingDir)
+	{
+		for(Tile tile : tiles)
+		{
+			tile.tileRectangle.x -= movingDir;
+		}
+	}
 }
 
 class Tile

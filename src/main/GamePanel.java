@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 
 		map = new Map();
-		enemy = new Enemy(5,20,5);
+		enemy = new Enemy(5,20,3);
 		character = new Character();
 		timer = new Timer(5, this);
 		timer.start();
@@ -46,10 +46,11 @@ public class GamePanel extends JPanel implements ActionListener {
 		Graphics2D g2d = (Graphics2D) g;
 
 		map.drawMap(g2d);
+		
+		enemy.drawEnemy(g2d);
 		g2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
-		g2d.drawImage(enemy.currentImage, enemy.rectangle.x,
-				enemy.rectangle.y, this);
+		
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -85,7 +86,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			character.rectangle.x = 320 - character.rectangle.width;
 			map.updateMap(velx);
 		}*/
-		
+		enemy.update();
 		character.update();
 		repaint();
 	}

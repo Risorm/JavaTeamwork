@@ -27,9 +27,9 @@ public class Character {
 	boolean jumpingRight;
 	boolean jumpingLeft;
 	
-	boolean landed;
+	boolean landing;
 	boolean isJumping;
-	
+	boolean canJump;
 	
 	public void initImages() {
 		walkRightAnimation = new LinkedList<>();
@@ -52,33 +52,56 @@ public class Character {
 	}
 
 	public void update() {
-		if (idleRight == true) {
+		if (idleRight == true) 
+		{
 			currentImage = idleRightImage;
-		} else if (idleLeft == true) {
+		} 
+		else if (idleLeft == true) 
+		{
 			currentImage = idleLeftImage;
-		} else if (walkingRight == true) {
+		} 
+		else if (walkingRight == true && isJumping == false && landing == false) 
+		{
 			currentImage = walkRightAnimation.get(currentFrame);
 			delay++;
-			if (delay >= 6) {
+			if (delay >= 6) 
+			{
 				currentFrame++;
 				delay = 0;
 			}
-		} else if (walkingLeft == true) {
+		} 
+		else if (walkingLeft == true && isJumping == false && landing == false)
+		{
 			currentImage = walkLeftAnimation.get(currentFrame);
 			delay++;
 			if (delay >= 6) {
 				currentFrame++;
 				delay = 0;
 			}
-		} else if (jumpingRight == true) {
-			currentImage = jumpRightAnimation.get(currentFrame);
-			currentFrame++;
-		} else if (jumpingLeft == true) {
-			currentImage = jumpLeftAnimation.get(currentFrame);
-			currentFrame++;
-		} else if (walkingRight == false && walkingLeft == false) {
+		} 
+		else if (walkingRight == false && walkingLeft == false)
+		{
 			currentFrame = 0;
 		}
+		else if (landing == true && walkingRight == true) 
+		{
+			currentImage = jumpRightAnimation.get(2);
+			//currentFrame++;
+		} 
+		else if (landing == true && walkingLeft == true)
+		{
+			currentImage = jumpLeftAnimation.get(2);
+			//currentFrame++;
+		}
+		else if(isJumping == true && walkingLeft == true)
+		{
+			currentImage = jumpLeftAnimation.get(1);
+		}
+		else if(isJumping == true && walkingRight == true)
+		{
+			currentImage = jumpRightAnimation.get(1);
+		}
+		
 		if (currentFrame >= 3)
 			currentFrame = 0;
 		
@@ -89,7 +112,8 @@ public class Character {
 		rectangle = new Rectangle(0,0,idleLeftImage.getWidth(null),idleLeftImage.getHeight(null));
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
-		landed = false;
+		canJump = false;
+		landing = false;
 		idleRight = idleLeft = false;
 		currentFrame = 0;
 		currentImage = idleRightImage;

@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	int velx = 0, vely = 0;
 	Map map;
 	ArrayList<Coin> coins;
+	int startY = 0;
 	public GamePanel() {
 
 		addKeyListener(new InputHandler());
@@ -60,17 +61,23 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		/*if(character.isJumping == true && character.landed == false)
-		{
-			vely = -8;
-		}*/
 		vely = 2;
+		if(character.isJumping == true)
+		{
+			character.rectangle.y -= 8;
+			character.rectangle.x += velx;
+		}
+		if(character.rectangle.y <= startY - 2 * character.rectangle.height && character.isJumping == true)
+		{
+			character.isJumping = false;
+			character.landing = true;
+		}
 		character.rectangle.x += velx;
 		for(int i = 0; i < map.tiles.size();i++)
 		{
 			if(map.tiles.get(i).collidable == true)
 			{
-				if(character.rectangle.intersects(map.tiles.get(i).tileRectangle))
+				if(character.rectangle.intersects(map.tiles.get(i).tileRectangle) && (character.walkingLeft == true || character.walkingRight == true))
 				{
 					character.rectangle.x -= velx;
 				}
@@ -83,8 +90,8 @@ public class GamePanel extends JPanel implements ActionListener {
 			{
 				if(character.rectangle.intersects(map.tiles.get(i).tileRectangle))
 				{
-					if(character.isJumping == true)
-						character.isJumping = false;
+					character.canJump = true;
+					character.landing = false;
 					character.rectangle.y -= vely;
 				}
 			}
@@ -118,8 +125,6 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = false;
 				
 				velx = -1;
-				//character.jumpingLeft = true;
-				//character.jumpingRight = true;
 			}
 
 			if (key == KeyEvent.VK_RIGHT) {
@@ -130,15 +135,13 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = true;
 				
 				velx = 1;
-				//character.jumpingRight = true;
-				//character.jumpingLeft = true;
 			}
 
 			if (key == KeyEvent.VK_UP) {
-				if (character.isJumping == false) {
+				if (character.canJump == true) {
 					character.isJumping = true;
-					//character.landed = false;
-					character.rectangle.y -= character.rectangle.height * 2;
+					character.canJump = false;
+					startY = character.rectangle.y;
 				} 
 			}
 		}
@@ -165,7 +168,6 @@ public class GamePanel extends JPanel implements ActionListener {
 				velx = 0;
 			}
 			if (key == KeyEvent.VK_UP) {
-				vely = 0;
 			}
 		}
 	}

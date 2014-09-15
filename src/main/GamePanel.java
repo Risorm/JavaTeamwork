@@ -3,6 +3,7 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -18,6 +19,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	private Timer timer;
 	
+	Image background;
 	Character character;
 	Enemy enemy;
 	int velx = 0, vely = 0;
@@ -29,6 +31,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		setFocusable(true);
 		setBackground(Color.BLACK);
 		setDoubleBuffered(true);
+		background = Toolkit.getDefaultToolkit().createImage("res/background.jpg");
 
 		coins = new ArrayList<>();
 		coins.add(new Coin(5,20));
@@ -43,7 +46,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		super.paint(g);
 
 		Graphics2D graphics2d = (Graphics2D) g;
-
+		graphics2d.drawImage(background, 0, 0, null);
 		map.drawMap(graphics2d);
 		
 		for(Coin coin : coins)

@@ -85,7 +85,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		vely = 2;
 		if (character.isJumping == true) {
 			character.rectangle.y -= 8;
-			character.rectangle.x += velx;
+			//character.rectangle.x += velx;
 		}
 		if (character.rectangle.y <= startY - 2 * character.rectangle.height
 				&& character.isJumping == true) {

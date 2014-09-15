@@ -87,6 +87,8 @@ public class GamePanel extends JPanel implements ActionListener {
 				if(character.rectangle.intersects(map.tiles.get(i).tileRectangle) && (character.walkingLeft == true || character.walkingRight == true))
 				{
 					character.rectangle.x -= velx;
+					velx2 -= velx;
+					
 				}
 			}
 		}

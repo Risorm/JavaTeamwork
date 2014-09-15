@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class Character {
 	public Rectangle rectangle;
-	
+
 	int currentFrame;
 	int delay = 0;
 
@@ -14,11 +14,11 @@ public class Character {
 	LinkedList<Image> walkLeftAnimation;
 	LinkedList<Image> jumpRightAnimation;
 	LinkedList<Image> jumpLeftAnimation;
-	
+
 	Image idleRightImage;
 	Image idleLeftImage;
 	public Image currentImage;
-	
+
 	boolean walkingRight;
 	boolean walkingLeft;
 
@@ -26,11 +26,11 @@ public class Character {
 	boolean idleRight;
 	boolean jumpingRight;
 	boolean jumpingLeft;
-	
+
 	boolean landing;
 	boolean isJumping;
 	boolean canJump;
-	
+
 	public void initImages() {
 		walkRightAnimation = new LinkedList<>();
 		walkLeftAnimation = new LinkedList<>();
@@ -52,64 +52,49 @@ public class Character {
 	}
 
 	public void update() {
-		if (idleRight == true) 
-		{
+		if (idleRight == true) {
 			currentImage = idleRightImage;
-		} 
-		else if (idleLeft == true) 
-		{
+		} else if (idleLeft == true) {
 			currentImage = idleLeftImage;
-		} 
-		else if (walkingRight == true && isJumping == false && landing == false) 
-		{
+		} else if (walkingRight == true && isJumping == false
+				&& landing == false) {
 			currentImage = walkRightAnimation.get(currentFrame);
 			delay++;
-			if (delay >= 6) 
-			{
+			if (delay >= 6) {
 				currentFrame++;
 				delay = 0;
 			}
-		} 
-		else if (walkingLeft == true && isJumping == false && landing == false)
-		{
+		} else if (walkingLeft == true && isJumping == false
+				&& landing == false) {
 			currentImage = walkLeftAnimation.get(currentFrame);
 			delay++;
 			if (delay >= 6) {
 				currentFrame++;
 				delay = 0;
 			}
-		} 
-		else if (walkingRight == false && walkingLeft == false)
-		{
+		} else if (walkingRight == false && walkingLeft == false) {
 			currentFrame = 0;
-		}
-		else if (landing == true && walkingRight == true) 
-		{
+		} else if (landing == true && walkingRight == true) {
 			currentImage = jumpRightAnimation.get(2);
-			//currentFrame++;
-		} 
-		else if (landing == true && walkingLeft == true)
-		{
+			// currentFrame++;
+		} else if (landing == true && walkingLeft == true) {
 			currentImage = jumpLeftAnimation.get(2);
-			//currentFrame++;
-		}
-		else if(isJumping == true && walkingLeft == true)
-		{
+			// currentFrame++;
+		} else if (isJumping == true && walkingLeft == true) {
 			currentImage = jumpLeftAnimation.get(1);
-		}
-		else if(isJumping == true && walkingRight == true)
-		{
+		} else if (isJumping == true && walkingRight == true) {
 			currentImage = jumpRightAnimation.get(1);
 		}
-		
+
 		if (currentFrame >= 3)
 			currentFrame = 0;
-		
+
 	}
 
 	public Character() {
 		initImages();
-		rectangle = new Rectangle(0,0,idleLeftImage.getWidth(null),idleLeftImage.getHeight(null));
+		rectangle = new Rectangle(0, 0, idleLeftImage.getWidth(null),
+				idleLeftImage.getHeight(null));
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
 		canJump = false;

@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 public class Enemy {
-	
+
 	public Rectangle rectangle;
 	int currentFrame;
 	int delay = 0;
@@ -14,7 +14,7 @@ public class Enemy {
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;
 	int radius;
-	
+
 	boolean walkingRight;
 	boolean walkingLeft;
 
@@ -50,34 +50,35 @@ public class Enemy {
 		if (currentFrame >= 3)
 			currentFrame = 0;
 	}
-	public void drawEnemy(Graphics2D graphics)
-	{
-		if(walkingLeft == true)
-			graphics.drawImage(walkLeftAnimation.get(currentFrame),rectangle.x,rectangle.y,null);
-		else if(walkingRight == true)
-			graphics.drawImage(walkRightAnimation.get(currentFrame),rectangle.x,rectangle.y,null);
+
+	public void drawEnemy(Graphics2D graphics) {
+		if (walkingLeft == true)
+			graphics.drawImage(walkLeftAnimation.get(currentFrame),
+					rectangle.x, rectangle.y, null);
+		else if (walkingRight == true)
+			graphics.drawImage(walkRightAnimation.get(currentFrame),
+					rectangle.x, rectangle.y, null);
 	}
-	public void updateMovement()
-	{
-		if(walkingRight == true)
+
+	public void updateMovement() {
+		if (walkingRight == true)
 			rectangle.x += 1;
-		if(rectangle.x + rectangle.width >= startPositionX + rectangle.width + radius)
-		{
+		if (rectangle.x + rectangle.width >= startPositionX + rectangle.width
+				+ radius) {
 			walkingRight = false;
 			walkingLeft = true;
 		}
-		if(walkingLeft == true)
+		if (walkingLeft == true)
 			rectangle.x -= 1;
-		if(rectangle.x <= startPositionX - radius)
-		{
+		if (rectangle.x <= startPositionX - radius) {
 			walkingRight = true;
 			walkingLeft = false;
 		}
 	}
-	
-	public Enemy (int x, int y,int radius) {
+
+	public Enemy(int x, int y, int radius) {
 		initImages();
-		rectangle = new Rectangle(x * 20, y * 20, 40,60);
+		rectangle = new Rectangle(x * 20, y * 20, 40, 60);
 		walkingLeft = false;
 		walkingRight = true;
 		startPositionX = x * 20;

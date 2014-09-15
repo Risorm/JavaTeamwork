@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 public class Coin {
-	
+
 	Rectangle rectangle;
 	int currentFrame;
 	int delay = 0;
@@ -17,8 +17,8 @@ public class Coin {
 		rotateAnimation = new LinkedList<>();
 
 		for (int i = 1; i <= 9; i++) {
-			rotateAnimation.add(Utils.loadImage("res/coinanimations/goldCoin" + i
-					+ ".png"));
+			rotateAnimation.add(Utils.loadImage("res/coinanimations/goldCoin"
+					+ i + ".png"));
 		}
 	}
 
@@ -32,13 +32,14 @@ public class Coin {
 			currentFrame = 0;
 	}
 
-	public void drawCoin(Graphics2D graphics)
-	{
-		graphics.drawImage(rotateAnimation.get(currentFrame),rectangle.x,rectangle.y,null);
+	public void drawCoin(Graphics2D graphics) {
+		graphics.drawImage(rotateAnimation.get(currentFrame), rectangle.x,
+				rectangle.y, null);
 	}
+
 	public Coin(int x, int y) {
 		initImages();
-		rectangle = new Rectangle(x * 20,y * 20,20,20);
+		rectangle = new Rectangle(x * 20, y * 20, 20, 20);
 		currentFrame = 0;
 	}
 }

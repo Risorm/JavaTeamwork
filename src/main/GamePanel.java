@@ -1,21 +1,18 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class GamePanel extends JPanel implements ActionListener {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Timer timer;
 
@@ -85,14 +82,14 @@ public class GamePanel extends JPanel implements ActionListener {
 		vely = 2;
 		if (character.isJumping == true) {
 			character.rectangle.y -= 8;
-			//character.rectangle.x += velx;
+			// character.rectangle.x += velx;
 		}
 		if (character.rectangle.y <= startY - 2 * character.rectangle.height
 				&& character.isJumping == true) {
 			character.isJumping = false;
 			character.landing = true;
 		}
-		//character.rectangle.x += velx;
+		// character.rectangle.x += velx;
 		velx2 += velx;
 		velx3 += velx;
 
@@ -101,7 +98,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				if (character.rectangle
 						.intersects(map.tiles.get(i).tileRectangle)
 						&& (character.walkingLeft == true || character.walkingRight == true)) {
-					//character.rectangle.x -= velx;
+					// character.rectangle.x -= velx;
 					velx2 -= velx;
 					velx3 -= velx;
 				}
@@ -181,7 +178,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 				velx = 0;
 				map.updateMap(velx);
-				
+
 			} else if (key == KeyEvent.VK_RIGHT) {
 				character.idleRight = true;
 				character.idleLeft = false;

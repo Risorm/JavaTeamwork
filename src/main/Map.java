@@ -1,14 +1,9 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.Scanner;
-
-import com.sun.accessibility.internal.resources.accessibility;
 
 public class Map {
 	public LinkedList<Tile> tiles;

@@ -7,7 +7,7 @@ public class Character {
 	public int positionX;
 	public int positionY;
 
-	int currentFrame;
+	    int currentFrame;
 
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;

@@ -20,9 +20,10 @@ public class GamePanel extends JPanel implements ActionListener {
 	private Timer timer;
 	
 	Image background;
+	Image foreground;
 	Character character;
 	Enemy enemy;
-	int velx = 0, vely = 0;
+	int velx = 0, vely = 0, velx2 = 625;
 	Map map;
 	ArrayList<Coin> coins;
 	public GamePanel() {
@@ -36,6 +37,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		coins = new ArrayList<>();
 		coins.add(new Coin(5,20));
 		map = new Map();
+		foreground = Toolkit.getDefaultToolkit().createImage("res/foreground.png");
 		enemy = new Enemy(5,18,3);
 		character = new Character();
 		timer = new Timer(5, this);
@@ -46,9 +48,9 @@ public class GamePanel extends JPanel implements ActionListener {
 		super.paint(g);
 
 		Graphics2D graphics2d = (Graphics2D) g;
-		graphics2d.drawImage(background, 0, 0, null);
+		graphics2d.drawImage(background, 625-velx2, 0, null);
 		map.drawMap(graphics2d);
-		
+		System.out.println(character.rectangle.x);		
 		for(Coin coin : coins)
 		{
 			coin.drawCoin(graphics2d);
@@ -57,6 +59,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		enemy.drawEnemy(graphics2d);
 		graphics2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
+		graphics2d.drawImage(foreground, 625-velx2, 0, null);
 		
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -69,6 +72,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		}*/
 		vely = 2;
 		character.rectangle.x += velx;
+		velx2 += velx;
 		for(int i = 0; i < map.tiles.size();i++)
 		{
 			if(map.tiles.get(i).collidable == true)

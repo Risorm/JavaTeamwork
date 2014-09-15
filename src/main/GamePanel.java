@@ -66,7 +66,6 @@ public class GamePanel extends JPanel implements ActionListener {
 			graphics2d.drawImage(background, 625 - velx3, 0, null);
 		}
 		map.drawMap(graphics2d);
-		System.out.println(character.rectangle.x);
 		for (Coin coin : coins) {
 			coin.drawCoin(graphics2d);
 		}
@@ -146,6 +145,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = false;
 
 				velx = -1;
+				map.updateMap(velx);
 			}
 
 			if (key == KeyEvent.VK_RIGHT) {
@@ -156,6 +156,8 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = true;
 
 				velx = 1;
+				map.updateMap(velx);
+
 			}
 
 			if (key == KeyEvent.VK_UP) {
@@ -178,6 +180,8 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.jumpingLeft = false;
 
 				velx = 0;
+				map.updateMap(velx);
+				
 			} else if (key == KeyEvent.VK_RIGHT) {
 				character.idleRight = true;
 				character.idleLeft = false;
@@ -186,6 +190,8 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.jumpingRight = false;
 
 				velx = 0;
+				map.updateMap(velx);
+
 			}
 			if (key == KeyEvent.VK_UP) {
 			}

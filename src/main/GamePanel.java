@@ -145,7 +145,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = false;
 
 				velx = -1;
-				map.updateMap(velx);
+				map.updateMap(-8);
 			}
 
 			if (key == KeyEvent.VK_RIGHT) {
@@ -156,7 +156,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = true;
 
 				velx = 1;
-				map.updateMap(velx);
+				map.updateMap(8);
 
 			}
 

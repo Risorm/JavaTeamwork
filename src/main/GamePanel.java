@@ -51,7 +51,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		Graphics2D graphics2d = (Graphics2D) g;
 		graphics2d.drawImage(background, 625-velx2, 0, null);
 		map.drawMap(graphics2d);
-		graphics2d.drawImage(foreground, 625-velx2, 0, null);
 		System.out.println(character.rectangle.x);		
 		for(Coin coin : coins)
 		{
@@ -61,6 +60,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		enemy.drawEnemy(graphics2d);
 		graphics2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
+		graphics2d.drawImage(foreground, 625-velx2, 0, null);
 		
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -87,7 +87,6 @@ public class GamePanel extends JPanel implements ActionListener {
 				if(character.rectangle.intersects(map.tiles.get(i).tileRectangle) && (character.walkingLeft == true || character.walkingRight == true))
 				{
 					character.rectangle.x -= velx;
-					velx2 -= velx;
 				}
 			}
 		}

@@ -54,7 +54,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		Graphics2D graphics2d = (Graphics2D) g;
 
 		if ((character.rectangle.x - (background.getWidth(null) - Game.WIDTH))
-				% (background.getWidth(null)) == 0) {
+				% (2 * background.getWidth(null)) == 0) {
 			velx3 = 0;
 		}
 		if ((character.rectangle.x - background.getWidth(null))
@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			velx2 = 0;
 		}
 		graphics2d.drawImage(background, 625 - velx2, 0, null);
-		if (character.rectangle.x > (background.getWidth(null) - Game.WIDTH)) {
+		if (character.rectangle.x >= (background.getWidth(null) - Game.WIDTH)) {
 			graphics2d.drawImage(background, 625 - velx3, 0, null);
 		}
 		map.drawMap(graphics2d);
@@ -75,7 +75,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		graphics2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
 		graphics2d.drawImage(foreground, 625 - velx2, 0, null);
-		if (character.rectangle.x > (foreground.getWidth(null) - Game.WIDTH)) {
+		if (character.rectangle.x >= (foreground.getWidth(null) - Game.WIDTH)) {
 			graphics2d.drawImage(foreground, 625 - velx3, 0, null);
 		}
 		Toolkit.getDefaultToolkit().sync();
@@ -105,7 +105,6 @@ public class GamePanel extends JPanel implements ActionListener {
 					character.rectangle.x -= velx;
 					velx2 -= velx;
 					velx3 -= velx;
-
 				}
 			}
 		}

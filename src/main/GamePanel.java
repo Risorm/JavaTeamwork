@@ -53,7 +53,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		Graphics2D graphics2d = (Graphics2D) g;
 		graphics2d.drawImage(background, 625 - velx2, 0, null);
-		if (character.rectangle.x >= (background.getWidth(null) - Game.WIDTH)) {
+		if (velx2 >= background.getWidth(null)) {
 			graphics2d.drawImage(background, 625 - velx3, 0, null);
 		}
 		map.drawMap(graphics2d);
@@ -65,9 +65,10 @@ public class GamePanel extends JPanel implements ActionListener {
 		graphics2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
 		graphics2d.drawImage(foreground, 625 - velx2, 0, null);
-		if (character.rectangle.x >= (foreground.getWidth(null) - Game.WIDTH)) {
+		if (velx2 >= foreground.getWidth(null)) {
 			graphics2d.drawImage(foreground, 625 - velx3, 0, null);
 		}
+		System.out.println(velx2);
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}

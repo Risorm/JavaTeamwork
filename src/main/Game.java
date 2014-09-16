@@ -4,7 +4,9 @@ import javax.swing.JFrame;
 
 public class Game extends JFrame {
 
-	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640, HEIGHT = 480;
 
@@ -14,7 +16,7 @@ public class Game extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH, HEIGHT);
 		setLocationRelativeTo(null);
-		setTitle("Pig Ninja vs Androids");
+		setTitle("AeroBlue Platformer");
 		setResizable(false);
 		setVisible(true);
 	}

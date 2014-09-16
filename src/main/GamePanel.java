@@ -47,7 +47,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		lives = 3;
 		delayForScoreAnimation = 0;
 		scoreAnimation = new LinkedList<>();
-		livesImage = Utils.loadImage("res/healthanimations/idleRight1.png");
+		livesImage = Utils.loadImage("res/healthanimations/heart.png");
 		for (int i = 1; i <= 9; i++)
 		{
 			scoreAnimation.add(Utils.loadImage("res/scoreanimations/goldCoin" + i + ".png"));

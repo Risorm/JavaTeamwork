@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class Character {
 	public Rectangle rectangle;
-
+	public Rectangle virtualRectangle;
 	int currentFrame;
 	int delay = 0;
 
@@ -93,8 +93,9 @@ public class Character {
 
 	public Character() {
 		initImages();
-		rectangle = new Rectangle(0, 0, idleLeftImage.getWidth(null),
+		rectangle = new Rectangle(15 * 20, 0, idleLeftImage.getWidth(null),
 				idleLeftImage.getHeight(null));
+		virtualRectangle = rectangle;
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
 		canJump = false;

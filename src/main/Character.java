@@ -6,10 +6,14 @@ import java.util.LinkedList;
 
 public class Character {
 	public Rectangle rectangle;
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 	    int currentFrame;
 =======
+=======
+	public Rectangle virtualRectangle;
+>>>>>>> 134b2229500115948dea2d18ece606b2eff83a1a
 	int currentFrame;
 	int delay = 0;
 >>>>>>> origin/master
@@ -97,8 +101,9 @@ public class Character {
 
 	public Character() {
 		initImages();
-		rectangle = new Rectangle(0, 0, idleLeftImage.getWidth(null),
+		rectangle = new Rectangle(15 * 20, 0, idleLeftImage.getWidth(null),
 				idleLeftImage.getHeight(null));
+		virtualRectangle = rectangle;
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
 		canJump = false;

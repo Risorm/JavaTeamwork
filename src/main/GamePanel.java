@@ -2,6 +2,7 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -18,7 +19,16 @@ public class GamePanel extends JPanel implements ActionListener {
 	Map map;
 	int startY = 0;
 	
+	
 	int score;
+	int lives;
+	LinkedList<Image> scoreAnimation;
+
+	Image livesImage;
+	
+	int delayForScoreAnimation;
+	int currentFrameScore;
+	
 	public GamePanel() {
 
 		addKeyListener(new InputHandler());
@@ -26,14 +36,22 @@ public class GamePanel extends JPanel implements ActionListener {
 		setBackground(Color.BLACK);
 		setDoubleBuffered(true);
 		
-		
 		background = Toolkit.getDefaultToolkit().createImage(
 				"res/background.jpg");
 		foreground = Toolkit.getDefaultToolkit().createImage(
 				"res/foreground.png");
 		
 		map = new Map();
+		currentFrameScore = 0;
 		score = 0;
+		lives = 3;
+		delayForScoreAnimation = 0;
+		scoreAnimation = new LinkedList<>();
+		livesImage = Utils.loadImage("res/healthanimations/idleRight1.png");
+		for (int i = 1; i <= 9; i++)
+		{
+			scoreAnimation.add(Utils.loadImage("res/scoreanimations/goldCoin" + i + ".png"));
+		}
 		character = new Character();
 		timer = new Timer(5, this);
 		timer.start();
@@ -41,31 +59,37 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	public void paint(Graphics g) {
 		super.paint(g);
-
 		Graphics2D graphics2d = (Graphics2D) g;
 		graphics2d.drawImage(background, 625 - velx2, 0, null);
 		if (velx2 >= background.getWidth(null)) {
 			graphics2d.drawImage(background, 625 - velx3, 0, null);
 		}
 		map.drawMap(graphics2d);
-
+		
 		graphics2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
 		graphics2d.drawImage(foreground, 625 - velx2, 0, null);
 		if (velx2 >= foreground.getWidth(null)) {
 			graphics2d.drawImage(foreground, 625 - velx3, 0, null);
 		}
-		System.out.println(velx2);
+		for (int i = 0; i < lives; i++) 
+		{
+			graphics2d.drawImage(livesImage,i * 24,0,null);
+		}
+		
+		graphics2d.drawImage(scoreAnimation.get(currentFrameScore), 570, 0, null);
+		graphics2d.setColor(Color.WHITE);
+	    graphics2d.setFont(new Font("Serif", Font.BOLD, 20));
+		graphics2d.drawString(" : " + score, 590, 25);
+	//	System.out.println(velx2);
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		map.updateMap(velx,character);
 		vely = 2;
 		if (character.isJumping == true) {
 			character.rectangle.y -= 8;
-			
 		}
 		if (character.rectangle.y <= startY - 2 * character.rectangle.height
 				&& character.isJumping == true) {
@@ -75,6 +99,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		//character.virtualRectangle.x += velx;
 		velx2 += velx;
 		velx3 += velx;
+		map.updateMap(velx);
 		for (int i = 0; i < map.tiles.size(); i++) {
 			if (map.tiles.get(i).collidable == true) {
 				if (character.rectangle
@@ -82,7 +107,8 @@ public class GamePanel extends JPanel implements ActionListener {
 						&& (character.walkingLeft == true || character.walkingRight == true)) {
 					velx2 -= velx;
 					velx3 -= velx;
-					map.updateMap(-velx, character);
+					//character.virtualRectangle.x -= velx;
+					map.updateMap(-velx);
 				}
 			}
 		}
@@ -106,6 +132,14 @@ public class GamePanel extends JPanel implements ActionListener {
 			}
 		}
 		// animation
+		delayForScoreAnimation++;
+		if(delayForScoreAnimation >= 10)
+		{
+			delayForScoreAnimation = 0;
+			currentFrameScore++;
+		}
+		if(currentFrameScore > scoreAnimation.size() - 1)
+			currentFrameScore = 0;
 		for (int i = 0; i < map.coins.size(); i++) {
 			if (character.rectangle.intersects(map.coins.get(i).rectangle))
 			{

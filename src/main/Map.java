@@ -35,7 +35,7 @@ public class Map {
 			while(scanner.hasNextLine())
 			{
 				String[] tempEnemy = scanner.nextLine().split(" ");
-				enemies.add(new Enemy(Integer.parseInt(tempEnemy[0]), Integer.parseInt(tempEnemy[1]), Integer.parseInt(tempEnemy[2])));
+				enemies.add(new Enemy(Integer.parseInt(tempEnemy[0]), Integer.parseInt(tempEnemy[1]), Integer.parseInt(tempEnemy[2]),Integer.parseInt(tempEnemy[3])));
 			}
 			scanner.close();
 			//coins
@@ -67,7 +67,7 @@ public class Map {
 		}
 	}
 
-	public void updateMap(int movingDir, Character character) 
+	public void updateMap(int movingDir) 
 	{
 		//moving
 		for(Enemy enemy : enemies)

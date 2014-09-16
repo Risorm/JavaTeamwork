@@ -18,6 +18,7 @@ public class Enemy {
 	boolean walkingRight;
 	boolean walkingLeft;
 
+	int speed;
 	public void initImages() {
 		walkRightAnimation = new LinkedList<>();
 		walkLeftAnimation = new LinkedList<>();
@@ -62,23 +63,24 @@ public class Enemy {
 
 	public void updateMovement() {
 		if (walkingRight == true)
-			rectangle.x += 1;
+			rectangle.x += speed;
 		if (rectangle.x + rectangle.width >= startPositionX + rectangle.width
 				+ radius) {
 			walkingRight = false;
 			walkingLeft = true;
 		}
 		if (walkingLeft == true)
-			rectangle.x -= 1;
+			rectangle.x -= speed;
 		if (rectangle.x <= startPositionX - radius) {
 			walkingRight = true;
 			walkingLeft = false;
 		}
 	}
-
-	public Enemy(int x, int y, int radius) {
+	
+	public Enemy(int x, int y, int radius,int speed) {
 		initImages();
 		rectangle = new Rectangle(x * 20, y * 20, 40, 60);
+		this.speed = speed;
 		walkingLeft = false;
 		walkingRight = true;
 		startPositionX = x * 20;

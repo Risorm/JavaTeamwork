@@ -67,7 +67,7 @@ public class Map {
 		}
 	}
 
-	public void updateMap(int movingDir) 
+	public void updateMap(int movingDir, Character character) 
 	{
 		//moving
 		for(Enemy enemy : enemies)
@@ -86,26 +86,22 @@ public class Map {
 			tile.tileRectangle.x -= movingDir;
 		}
 		
-		
 	}
 }
 
 class Tile {
 	public Rectangle tileRectangle;
+	public Rectangle startRectangle;
 	public Color color;
 	public boolean collidable;
 	public Image tileImage;
 
 	public Tile(int x, int y, char type) {
-		if(type != ' ')
-		{
-			tileImage = Utils.loadImage("res/tiles/" + type + ".png");
-		}
-		else {
-			tileImage = Utils.loadImage("res/tiles/J.png");
-		}
+	
+		tileImage = Utils.loadImage("res/tiles/" + type + ".png");
 		tileRectangle = new Rectangle(x, y, tileImage.getWidth(null),
 				tileImage.getHeight(null));
+		startRectangle = tileRectangle;
 		if (type == 'V' || type == 'Z')
 			collidable = true;
 		else

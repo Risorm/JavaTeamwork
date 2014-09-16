@@ -2,7 +2,6 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -18,7 +17,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	int velx = 0, vely = 0, velx2 = 625, velx3 = 0;
 	Map map;
 	int startY = 0;
-
+	
+	int score;
 	public GamePanel() {
 
 		addKeyListener(new InputHandler());
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				"res/foreground.png");
 		
 		map = new Map();
-		
+		score = 0;
 		character = new Character();
 		timer = new Timer(5, this);
 		timer.start();
@@ -61,7 +61,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		map.updateMap(velx);
+		map.updateMap(velx,character);
 		vely = 2;
 		if (character.isJumping == true) {
 			character.rectangle.y -= 8;
@@ -75,7 +75,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		//character.virtualRectangle.x += velx;
 		velx2 += velx;
 		velx3 += velx;
-
 		for (int i = 0; i < map.tiles.size(); i++) {
 			if (map.tiles.get(i).collidable == true) {
 				if (character.rectangle
@@ -83,7 +82,7 @@ public class GamePanel extends JPanel implements ActionListener {
 						&& (character.walkingLeft == true || character.walkingRight == true)) {
 					velx2 -= velx;
 					velx3 -= velx;
-					velx = 0;
+					map.updateMap(-velx, character);
 				}
 			}
 		}
@@ -108,8 +107,10 @@ public class GamePanel extends JPanel implements ActionListener {
 		}
 		// animation
 		for (int i = 0; i < map.coins.size(); i++) {
-			if (character.rectangle.intersects(map.coins.get(i).rectangle)) {
+			if (character.rectangle.intersects(map.coins.get(i).rectangle))
+			{
 				map.coins.remove(map.coins.get(i));
+				score++;
 			}
 		}
 

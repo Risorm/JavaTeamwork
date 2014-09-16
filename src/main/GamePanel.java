@@ -26,12 +26,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	int delayForScoreAnimation;
 	int currentFrameScore;
-<<<<<<< HEAD
 	boolean gameOver;
 	
-=======
-
->>>>>>> origin/master
 	public GamePanel() {
 
 		addKeyListener(this);
@@ -43,11 +39,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				"res/background.jpg");
 		foreground = Toolkit.getDefaultToolkit().createImage(
 				"res/foreground.png");
-<<<<<<< HEAD
 		gameOver = false;
-=======
-
->>>>>>> origin/master
 		map = new Map();
 		currentFrameScore = 0;
 		score = 0;
@@ -135,11 +127,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}
-<<<<<<< HEAD
-			if ((character.rectangle.x - (background.getWidth(null) - Game.WIDTH))
-					% (2 * background.getWidth(null)) == 0) {
-				velx3 = 0;
-=======
 		}
 		if (character.rectangle.y <= startY - 2 * character.rectangle.height
 				&& character.isJumping == true) {
@@ -160,7 +147,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					// character.virtualRectangle.x -= velx;
 					map.updateMap(-velx);
 				}
->>>>>>> origin/master
 			}
 			if ((character.rectangle.x - background.getWidth(null))
 					% (2 * background.getWidth(null)) == 0) {
@@ -177,23 +163,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}
-<<<<<<< HEAD
-			// animation
-			delayForScoreAnimation++;
-			if(delayForScoreAnimation >= 10)
-			{
-				delayForScoreAnimation = 0;
-				currentFrameScore++;
-			}
-			if(currentFrameScore > scoreAnimation.size() - 1)
-				currentFrameScore = 0;
-			for (int i = 0; i < map.coins.size(); i++) {
-				if (character.rectangle.intersects(map.coins.get(i).rectangle))
-				{
-					map.coins.remove(map.coins.get(i));
-					score++;
-				}
-=======
 		}
 		// animation
 		delayForScoreAnimation++;
@@ -207,7 +176,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			if (character.rectangle.intersects(map.coins.get(i).rectangle)) {
 				map.coins.remove(map.coins.get(i));
 				score++;
->>>>>>> origin/master
 			}
 
 			character.update();

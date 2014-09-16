@@ -60,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 		Graphics2D graphics2d = (Graphics2D) g;
+		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		graphics2d.drawImage(background, 625 - velx2, 0, null);
 		if (velx2 >= background.getWidth(null)) {
 			graphics2d.drawImage(background, 625 - velx3, 0, null);
@@ -195,12 +196,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				}
 			}
 			character.update();
-			repaint();
 			try {
-				theThread.sleep(12);
+				theThread.sleep(10);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			repaint();
 		}	
 	}
 	

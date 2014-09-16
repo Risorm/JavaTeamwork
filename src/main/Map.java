@@ -51,10 +51,15 @@ class Tile {
 	public Image tileImage;
 
 	public Tile(int x, int y, char type) {
-		tileImage = Utils.loadImage("res/tiles/" + type + ".png");
+		if(type != ' ')
+		{
+			tileImage = Utils.loadImage("res/tiles/" + type + ".png");
+		}
+		else {
+			tileImage = Utils.loadImage("res/tiles/J.png");
+		}
 		tileRectangle = new Rectangle(x, y, tileImage.getWidth(null),
 				tileImage.getHeight(null));
-
 		if (type == 'V' || type == 'Z')
 			collidable = true;
 		else

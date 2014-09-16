@@ -31,14 +31,17 @@ public class GamePanel extends JPanel implements ActionListener {
 		setFocusable(true);
 		setBackground(Color.BLACK);
 		setDoubleBuffered(true);
+		
+		
 		background = Toolkit.getDefaultToolkit().createImage(
 				"res/background.jpg");
-
+		foreground = Toolkit.getDefaultToolkit().createImage(
+				"res/foreground.png");
+		
 		coins = new ArrayList<>();
 		coins.add(new Coin(5, 20));
 		map = new Map();
-		foreground = Toolkit.getDefaultToolkit().createImage(
-				"res/foreground.png");
+		
 		enemy = new Enemy(5, 18, 3);
 		character = new Character();
 		timer = new Timer(5, this);
@@ -49,15 +52,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		super.paint(g);
 
 		Graphics2D graphics2d = (Graphics2D) g;
-
-		if ((character.rectangle.x - (background.getWidth(null) - Game.WIDTH))
-				% (2 * background.getWidth(null)) == 0) {
-			velx3 = 0;
-		}
-		if ((character.rectangle.x - background.getWidth(null))
-				% (2 * background.getWidth(null)) == 0) {
-			velx2 = 0;
-		}
 		graphics2d.drawImage(background, 625 - velx2, 0, null);
 		if (character.rectangle.x >= (background.getWidth(null) - Game.WIDTH)) {
 			graphics2d.drawImage(background, 625 - velx3, 0, null);
@@ -79,10 +73,11 @@ public class GamePanel extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		map.updateMap(velx);
 		vely = 2;
 		if (character.isJumping == true) {
 			character.rectangle.y -= 8;
-			// character.rectangle.x += velx;
+			
 		}
 		if (character.rectangle.y <= startY - 2 * character.rectangle.height
 				&& character.isJumping == true) {
@@ -103,6 +98,14 @@ public class GamePanel extends JPanel implements ActionListener {
 					velx3 -= velx;
 				}
 			}
+		}
+		if ((character.rectangle.x - (background.getWidth(null) - Game.WIDTH))
+				% (2 * background.getWidth(null)) == 0) {
+			velx3 = 0;
+		}
+		if ((character.rectangle.x - background.getWidth(null))
+				% (2 * background.getWidth(null)) == 0) {
+			velx2 = 0;
 		}
 		character.rectangle.y += vely;
 		for (int i = 0; i < map.tiles.size(); i++) {
@@ -142,7 +145,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = false;
 
 				velx = -1;
-				map.updateMap(-8);
+				//map.updateMap(velx);
 			}
 
 			if (key == KeyEvent.VK_RIGHT) {
@@ -153,7 +156,6 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.walkingRight = true;
 
 				velx = 1;
-				map.updateMap(8);
 
 			}
 
@@ -177,7 +179,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.jumpingLeft = false;
 
 				velx = 0;
-				map.updateMap(velx);
+				//map.updateMap(velx);
 
 			} else if (key == KeyEvent.VK_RIGHT) {
 				character.idleRight = true;
@@ -187,7 +189,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				character.jumpingRight = false;
 
 				velx = 0;
-				map.updateMap(velx);
+				//map.updateMap(velx);
 
 			}
 			if (key == KeyEvent.VK_UP) {

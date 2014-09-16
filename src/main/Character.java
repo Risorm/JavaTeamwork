@@ -10,6 +10,7 @@ public class Character {
 	int currentFrame;
 	int delay = 0;
 
+
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;
 	LinkedList<Image> jumpRightAnimation;

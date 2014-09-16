@@ -74,7 +74,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		}
 		for (int i = 0; i < lives; i++) 
 		{
-			graphics2d.drawImage(livesImage,i * 24,0,null);
+			graphics2d.drawImage(livesImage,i * 39,0,null);
 		}
 		
 		graphics2d.drawImage(scoreAnimation.get(currentFrameScore), 570, 0, null);
@@ -90,6 +90,16 @@ public class GamePanel extends JPanel implements ActionListener {
 		vely = 2;
 		if (character.isJumping == true) {
 			character.rectangle.y -= 8;
+			for (int i = 0; i < map.tiles.size(); i++) {
+				if (map.tiles.get(i).collidable == true) {
+					if (character.rectangle
+							.intersects(map.tiles.get(i).tileRectangle)) {
+						character.isJumping = false;
+						character.landing = true;
+						character.rectangle.y += 8;
+					}
+				}
+			}
 		}
 		if (character.rectangle.y <= startY - 2 * character.rectangle.height
 				&& character.isJumping == true) {

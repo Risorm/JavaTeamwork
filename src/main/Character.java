@@ -6,17 +6,10 @@ import java.util.LinkedList;
 
 public class Character {
 	public Rectangle rectangle;
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-	    int currentFrame;
-=======
-=======
 	public Rectangle virtualRectangle;
->>>>>>> 134b2229500115948dea2d18ece606b2eff83a1a
 	int currentFrame;
 	int delay = 0;
->>>>>>> origin/master
+
 
 	LinkedList<Image> walkRightAnimation;
 	LinkedList<Image> walkLeftAnimation;

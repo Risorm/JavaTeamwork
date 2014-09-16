@@ -22,6 +22,6 @@ public class Game extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Game();
+		Game game = new Game();
 	}
 }

@@ -4,6 +4,21 @@ import javax.swing.JFrame;
 
 public class Game extends JFrame {
 
+	public static final int DELAY_ENEMY_ANIMATIONS = 6;
+	public static final int DELAY_COINS_ANIMATIONS = 12;
+	public static final int DELAY_SCORE_ANIMATIONS = 8;
+	public static final int DELAY_CHARACTER_WALKING = 6;
+	public static final int DELAY_CHARACTER_DYING = 60;
+	
+	public static final int VELOCITY_X = 2;
+	public static final int VELOCITY_Y = 2;
+	public static final int VELOCITY_Y_JUMPING = 8;
+	
+	public static final int THREAD_SLEEP_VALUE = 14;
+	
+	public static final int SCORE_POSITION_X = 590;
+	public static final int SCORE_POSITION_Y = 10;
+	
 	
 	private static final long serialVersionUID = 1L;
 	public static final int WIDTH = 640, HEIGHT = 480;

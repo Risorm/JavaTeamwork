@@ -24,8 +24,8 @@ public class Enemy {
 	
 	int speed;
 	public void initImages() {
-		walkRighAnimation = new Animation("res/eanimations/walkRight",3,6);
-		walkLeftAnimation = new Animation("res/eanimations/walkLeft",3,6);
+		walkRighAnimation = new Animation("res/eanimations/walkRight",3,Game.DELAY_ENEMY_ANIMATIONS);
+		walkLeftAnimation = new Animation("res/eanimations/walkLeft",3,Game.DELAY_ENEMY_ANIMATIONS);
 		
 		idleLeftImage = Utils.loadImage("res/eanimations/idleLeft.png");
 		idleRightImage = Utils.loadImage("res/eanimations/idleRight.png");

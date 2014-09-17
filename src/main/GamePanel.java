@@ -17,8 +17,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	Map map;
 
 	int velx = 0, vely = 0, backgroundX2 = 640, backgroundX = 0;
-	int left = 150;
-
+	int startBackgroundX2 = backgroundX2, startBackgroundX = backgroundX;
 	int startY = 0;
 
 	int score;
@@ -38,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		background = Utils.loadImage("res/background.jpg");
 		foreground = Utils.loadImage("res/foreground.png");
 
-		scoreAnimation = new Animation("res/scoreanimations/goldCoin", 9, 6);
+		scoreAnimation = new Animation("res/scoreanimations/goldCoin", 9, Game.DELAY_SCORE_ANIMATIONS);
 		scoreAnimation.start();
 		livesImage = Utils.loadImage("res/healthanimations/heart.png");
 
@@ -62,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if ((character.virtualRectangle.x - 2282)
 				% (background.getWidth(null) * 2) == 0)
 			backgroundX = 0;
-		if ((character.virtualRectangle.x - 5882)
+		if ((character.virtualRectangle.x - 5205)
 				% (background.getWidth(null) * 2) == 0)
 			backgroundX2 = 0;
 
@@ -70,10 +69,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if (character.virtualRectangle.x > 2282) {
 			graphics2d.drawImage(background, 930 - backgroundX, 0, null);
 		}
-
-
-//		graphics2d.drawImage(map.fullEndPointImage,
-//				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
 
 		System.out.println(backgroundX + "X");
 		System.out.println(backgroundX2 + "X2");
@@ -89,9 +84,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if (character.virtualRectangle.x > 2282) {
 			graphics2d.drawImage(foreground, 930 - backgroundX, 0, null);
 		}
+<<<<<<< HEAD
 		
 //		graphics2d.drawImage(map.endPointImage, map.endPointRectangle.x,
 //				map.endPointRectangle.y, null);
+=======
+>>>>>>> origin/master
 
 		for (int i = 0; i < lives; i++) {
 			graphics2d.drawImage(livesImage, i * 39, 0, null);
@@ -112,16 +110,16 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		gameOver = false;
 		while (gameOver == false) {
 			if(character.die == false){
-			vely = 2;
+			vely = Game.VELOCITY_Y;
 			if (character.isJumping == true) {
-				character.rectangle.y -= 8;
+				character.rectangle.y -= Game.VELOCITY_Y_JUMPING;
 				for (int i = 0; i < map.tiles.size(); i++) {
 					if (map.tiles.get(i).collidable == true) {
 						if (character.rectangle
 								.intersects(map.tiles.get(i).tileRectangle)) {
 							character.isJumping = false;
 							character.landing = true;
-							character.rectangle.y += 8;
+							character.rectangle.y += Game.VELOCITY_Y_JUMPING;
 						}
 					}
 				}
@@ -135,7 +133,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.virtualRectangle.x += velx;
 			backgroundX += velx;
 			backgroundX2 += velx;
-			left += velx;
 			map.updateMap(velx);
 			for (int i = 0; i < map.tiles.size(); i++) {
 				if (map.tiles.get(i).collidable == true) {
@@ -204,8 +201,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				}
 			}
 			
+			if(character.rectangle.y + character.rectangle.height > 450)
+			{
+				character.die = true;
+			}
 			// animation
-			scoreAnimation.update();
+			
 			for (int i = 0; i < map.coins.size(); i++) {
 				if (character.rectangle.intersects(map.coins.get(i).rectangle)) {
 					map.coins.remove(map.coins.get(i));
@@ -214,6 +215,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			}
 			}
 			else {
+				character.idleLeft = false;
+				character.idleRight = false;
 				if(character.walkingLeft == true && character.dieLeftAnimation.done() == true ||
 						character.walkingRight == true && character.dieRightAnimation.done() == true)
 				{
@@ -221,10 +224,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					lives--;
 				}
 			}
+			scoreAnimation.update();
 			character.update();
 			repaint();
 			try {
-				Thread.sleep(6);
+				Thread.sleep(Game.THREAD_SLEEP_VALUE);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -236,6 +240,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		character = new Character();
 		velx = 0;
 		map.resetPositions();
+		backgroundX2 = startBackgroundX2;
+		backgroundX = startBackgroundX;
 	}
 	
 	@Override
@@ -249,10 +255,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.walkingLeft = true;
 			character.walkingRight = false;
 
+<<<<<<< HEAD
 			if (character.virtualRectangle.x > 300){
 				velx = -1;
 			}
 
+=======
+			velx = -Game.VELOCITY_X;
+>>>>>>> origin/master
 		}
 
 		if (key == KeyEvent.VK_RIGHT) {
@@ -262,7 +272,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.walkingLeft = false;
 			character.walkingRight = true;
 
-			velx = 1;
+			velx = Game.VELOCITY_X;
 
 		}
 

@@ -149,7 +149,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					map.updateMap(-velx);
 				}
 			}
-			
 			if (character.rectangle.y <= startY - 2 * character.rectangle.height
 					&& character.isJumping == true) 
 			{

@@ -13,12 +13,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	Image background;
 	Image foreground;
-
+	Image gameOverImage;
+	
 	Character character;
 	Map map;
 
-	int velx = 0, vely = 0, backgroundX2 = 1535, backgroundX = 0;
-	int startBackgroundX2 = backgroundX2, startBackgroundX = backgroundX;
+	int velx = 0, vely = 0;
 	int startY = 0;
 
 	int score;
@@ -27,9 +27,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	Image livesImage;
 
 	boolean gameOver;
+	boolean endPointReached;
+	int numberOfBackgrounds = 5;
 	
 	int[] backgroundPositionsX;
 	int[] foregroundPositionsX;
+	int[] startingForegroundPosX;
+	int[] startingBackgroundPosX;
+	
 	public GamePanel() {
 
 		addKeyListener(this);
@@ -43,15 +48,23 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		scoreAnimation = new Animation("res/scoreanimations/goldCoin", 9, Game.DELAY_SCORE_ANIMATIONS);
 		scoreAnimation.start();
 		livesImage = Utils.loadImage("res/healthanimations/heart.png");
-
-		gameOver = false;
+		gameOverImage = Utils.loadImage("res/gameover.png");
 		
-		backgroundPositionsX = new int[3];
-		foregroundPositionsX = new int[3];
+		gameOver = false;
+		endPointReached = false;
+		
+		backgroundPositionsX = new int[numberOfBackgrounds];
+		foregroundPositionsX = new int[numberOfBackgrounds];
+		startingBackgroundPosX =new int[numberOfBackgrounds];
+		startingForegroundPosX = new int[numberOfBackgrounds];
+		
 		for(int i = 0; i < backgroundPositionsX.length;i++)
 		{
 			backgroundPositionsX[i] = i * 1535;
+			startingBackgroundPosX[i] = backgroundPositionsX[i];
+			
 			foregroundPositionsX[i] = i * 1535;
+			startingForegroundPosX[i] = foregroundPositionsX[i];
 		}
 		
 		score = 0;
@@ -69,40 +82,49 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
-		for(int position : backgroundPositionsX)
+		if(endPointReached == true)
 		{
-				graphics2d.drawImage(background,position,0,null);
+			
 		}
-//		graphics2d.drawImage(map.fullEndPointImage,
-//				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
-
-		map.drawMap(graphics2d);
-		character.drawCharacter(graphics2d);
-
-		for(int position : foregroundPositionsX)
+		else if(gameOver == true)
 		{
-				graphics2d.drawImage(foreground,position,0,null);
+			graphics2d.drawImage(gameOverImage, 0, 0, null);
 		}
-		
-		for (int i = 0; i < lives; i++) {
-			graphics2d.drawImage(livesImage, i * 39, 0, null);
+		else{
+			for(int position : backgroundPositionsX)
+			{
+					graphics2d.drawImage(background,position,0,null);
+			}
+	//		graphics2d.drawImage(map.fullEndPointImage,
+	//				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
+	
+			map.drawMap(graphics2d);
+			character.drawCharacter(graphics2d);
+	
+			for(int position : foregroundPositionsX)
+			{
+					graphics2d.drawImage(foreground,position,0,null);
+			}
+			
+			for (int i = 0; i < lives; i++) {
+				graphics2d.drawImage(livesImage, i * 39, 0, null);
+			}
+	
+			scoreAnimation.drawAnimation(graphics2d, 570, 2);
+	
+			graphics2d.setColor(Color.WHITE);
+			graphics2d.setFont(new Font("Serif", Font.BOLD, 20));
+			graphics2d.drawString(" : " + score, 590, 25);
 		}
-
-		scoreAnimation.drawAnimation(graphics2d, 570, 2);
-
-		graphics2d.setColor(Color.WHITE);
-		graphics2d.setFont(new Font("Serif", Font.BOLD, 20));
-		graphics2d.drawString(" : " + score, 590, 25);
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}
 
 	@Override
 	public void run() {
-		gameOver = false;
-		while (gameOver == false)
+		while (gameOver == false && endPointReached == false)
 		{
-			if(character.die == false)
+			if(character.die == false && endPointReached == false)
 			{
 				vely = Game.VELOCITY_Y;
 				if (character.isJumping == true) {
@@ -172,8 +194,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			{
 				character.rectangle.x = 0;
 			}
+			if(character.rectangle.y + character.rectangle.width > 450)
+			{
+				character.idleLeft = false;
+				character.idleRight = false;
+				character.jumpingLeft = character.jumpingRight = false;
+				character.isJumping = false;
+				character.landing = false;
+				
+				character.die = true;
+			}
+			if(character.rectangle.intersects(map.endPointRectangle))
+			{
+				endPointReached = true;
+			}
 			// Enemies checking
-			/*for (int i = 0; i < map.enemies.size(); i++) {
+			for (int i = 0; i < map.enemies.size(); i++) {
 				if (character.rectangle
 						.intersects(map.enemies.get(i).rectangle)) {
 					character.die = true;
@@ -181,24 +217,29 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					character.isJumping = false;
 					character.landing = false;
 					
-					backgroundX -= velx;
-					backgroundX2 -= velx;
+					for(int j = 0; j < backgroundPositionsX.length; j++)
+					{
+						backgroundPositionsX[j] += velx;
+						foregroundPositionsX[j] += velx;
+					}
+					
 					character.virtualRectangle.x -= velx;
 					map.redirectMap(-velx);
 					character.die = true;
 				}
-			}*/
+			}
 			// animation
 			
-			for (int i = 0; i < map.coins.size(); i++) {
-				if (character.rectangle.intersects(map.coins.get(i).rectangle)) {
-					map.coins.remove(map.coins.get(i));
-					score++;
+				for (int i = 0; i < map.coins.size(); i++) {
+					if (character.rectangle.intersects(map.coins.get(i).rectangle)) {
+						map.coins.remove(map.coins.get(i));
+						score++;
+					}
 				}
+				map.updateMap();
 			}
-			map.updateMap();
-			}
-			else {
+			else
+			{
 				character.idleLeft = false;
 				character.idleRight = false;
 				if(character.walkingLeft == true && character.dieLeftAnimation.done() == true ||
@@ -207,6 +248,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					resetPositions();
 					lives--;
 				}
+				if(lives <= 0)
+					gameOver = true;
 			}
 			scoreAnimation.update();
 			character.update();
@@ -224,10 +267,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		character = new Character();
 		velx = 0;
 		map.resetPositions();
-		backgroundX2 = startBackgroundX2;
-		backgroundX = startBackgroundX;
+		for(int i = 0; i < backgroundPositionsX.length;i++)
+		{
+			backgroundPositionsX[i] = startingBackgroundPosX[i];
+			foregroundPositionsX[i] = startingForegroundPosX[i];
+		}
 	}
-	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();

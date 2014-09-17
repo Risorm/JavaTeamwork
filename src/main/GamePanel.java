@@ -88,6 +88,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		}
 		else if(gameOver == true)
 		{
+			graphics2d.drawImage(background, 0, 0, null);
+			graphics2d.drawImage(foreground,0,0,null);
 			graphics2d.drawImage(gameOverImage, 0, 0, null);
 		}
 		else{
@@ -194,7 +196,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			{
 				character.rectangle.x = 0;
 			}
-			if(character.rectangle.y + character.rectangle.width > 450)
+			if(character.rectangle.y + character.rectangle.height > 450)
 			{
 				character.idleLeft = false;
 				character.idleRight = false;

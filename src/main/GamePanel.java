@@ -204,6 +204,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		}
 	}
 
+	public void resetPositions()
+	{
+		character.idleRight = true;
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();

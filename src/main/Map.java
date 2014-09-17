@@ -110,7 +110,7 @@ class Tile {
 		tileImage = Utils.loadImage("res/tiles/" + type + ".png");
 		tileRectangle = new Rectangle(x, y, tileImage.getWidth(null),
 				tileImage.getHeight(null));
-		startRectangle = tileRectangle;
+		startRectangle = new Rectangle(tileRectangle);
 		if (type == 'g' || type == 'h' || type == 'j' || type == 'k' || type == 'e')
 			collidable = true;
 		else

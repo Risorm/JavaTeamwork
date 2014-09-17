@@ -8,6 +8,7 @@ public class Character {
 	public Rectangle rectangle;
 	public Rectangle virtualRectangle;
 	public Rectangle startRectangle;
+	public Rectangle previousRectangle;
 	
 	Animation walkRightAnimation;
 	Animation walkLeftAnimation;
@@ -102,6 +103,7 @@ public class Character {
 				idleLeftImage.getHeight(null));
 		startRectangle = new Rectangle(rectangle);
 		virtualRectangle = new Rectangle(rectangle);
+		previousRectangle = new Rectangle(rectangle);
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
 		canJump = false;

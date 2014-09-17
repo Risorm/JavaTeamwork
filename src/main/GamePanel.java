@@ -84,13 +84,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if (character.virtualRectangle.x > 2282) {
 			graphics2d.drawImage(foreground, 930 - backgroundX, 0, null);
 		}
-<<<<<<< HEAD
 		
-//		graphics2d.drawImage(map.endPointImage, map.endPointRectangle.x,
-//				map.endPointRectangle.y, null);
-=======
->>>>>>> origin/master
-
 		for (int i = 0; i < lives; i++) {
 			graphics2d.drawImage(livesImage, i * 39, 0, null);
 		}
@@ -255,14 +249,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.walkingLeft = true;
 			character.walkingRight = false;
 
-<<<<<<< HEAD
 			if (character.virtualRectangle.x > 300){
 				velx = -1;
 			}
 
-=======
 			velx = -Game.VELOCITY_X;
->>>>>>> origin/master
+
 		}
 
 		if (key == KeyEvent.VK_RIGHT) {

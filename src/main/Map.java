@@ -13,6 +13,9 @@ public class Map {
 	public Image endPointImage;
 	public Rectangle endPointRectangle;
 	public Image fullEndPointImage;
+	
+	public Rectangle startEndPointRectangle;
+	
 	public Map() {
 		loadMap();
 	}
@@ -31,6 +34,8 @@ public class Map {
 			String[] endPointLine = scanner.nextLine().split(" ");
 			endPointRectangle = new Rectangle(Integer.parseInt(endPointLine[0]) * 20,Integer.parseInt(endPointLine[1]) * 20,
 					endPointImage.getWidth(null),endPointImage.getHeight(null));
+			startEndPointRectangle = new Rectangle(endPointRectangle);
+			
 			while (scanner.hasNextLine()) {
 				String tempLine = scanner.nextLine();
 				for (int x = 0; x < tempLine.length(); x++) {
@@ -82,7 +87,7 @@ public class Map {
 		for(Enemy enemy : enemies)
 		{
 			enemy.rectangle.x -= movingDir;
-			enemy.startPositionX -= movingDir;
+			enemy.centerX -= movingDir;
 			enemy.update();
 		}
 		for(Coin coin : coins)
@@ -96,12 +101,28 @@ public class Map {
 		}
 		endPointRectangle.x -= movingDir;
 	}
+	public void resetPositions()
+	{
+		for(Tile tile : tiles)
+		{
+			tile.tileRectangle = new Rectangle(tile.startRectangle);
+		}
+		for(Enemy enemy : enemies)
+		{
+			enemy.rectangle = new Rectangle(enemy.startRectangle);
+			enemy.centerX = enemy.startCenterX;
+		}
+		for(Coin coin : coins)
+		{
+			coin.rectangle = new Rectangle(coin.startRectangle);
+		}
+		endPointRectangle = new Rectangle(startEndPointRectangle);
+	}
 }
 
 class Tile {
 	public Rectangle tileRectangle;
 	public Rectangle startRectangle;
-	public Color color;
 	public boolean collidable;
 	public Image tileImage;
 

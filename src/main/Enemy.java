@@ -8,7 +8,8 @@ public class Enemy {
 
 	public Rectangle rectangle;
 	public Rectangle startRectangle;
-	int startPositionX = 0;
+	int startCenterX;
+	int centerX;
 	
 	int radius;
 	
@@ -56,14 +57,14 @@ public class Enemy {
 	public void updateMovement() {
 		if (walkingRight == true)
 			rectangle.x += speed;
-		if (rectangle.x + rectangle.width >= startPositionX + rectangle.width
+		if (rectangle.x + rectangle.width >= centerX + rectangle.width
 				+ radius) {
 			walkingRight = false;
 			walkingLeft = true;
 		}
 		if (walkingLeft == true)
 			rectangle.x -= speed;
-		if (rectangle.x <= startPositionX - radius) {
+		if (rectangle.x <= centerX - radius) {
 			walkingRight = true;
 			walkingLeft = false;
 		}
@@ -76,7 +77,8 @@ public class Enemy {
 		this.speed = speed;
 		walkingLeft = false;
 		walkingRight = true;
-		startPositionX = x * 20;
+		centerX = x * 20;
+		startCenterX = centerX;
 		this.radius = radius * 20;
 	}
 }

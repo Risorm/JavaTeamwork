@@ -7,7 +7,8 @@ import java.awt.Rectangle;
 public class Character {
 	public Rectangle rectangle;
 	public Rectangle virtualRectangle;
-
+	public Rectangle startRectangle;
+	
 	Animation walkRightAnimation;
 	Animation walkLeftAnimation;
 	Animation dieLeftAnimation;
@@ -39,8 +40,8 @@ public class Character {
 		walkRightAnimation = new Animation("res/canimations/walkRight", 3, 6);
 		walkLeftAnimation = new Animation("res/canimations/walkLeft", 3, 6);
 
-		dieLeftAnimation = new Animation("res/canimations/dyingLeft", 3, 6);
-		dieRightAnimation = new Animation("res/canimations/dyingRight", 3, 6);
+		dieLeftAnimation = new Animation("res/canimations/dyingLeft", 3, 60);
+		dieRightAnimation = new Animation("res/canimations/dyingRight", 3, 60);
 
 		idleRightImage = Utils.loadImage("res/canimations/idleRight.png");
 		idleLeftImage = Utils.loadImage("res/canimations/idleLeft.png");
@@ -99,6 +100,7 @@ public class Character {
 		initImages();
 		rectangle = new Rectangle(15 * 20, 0, idleLeftImage.getWidth(null),
 				idleLeftImage.getHeight(null));
+		startRectangle = new Rectangle(rectangle);
 		virtualRectangle = new Rectangle(rectangle);
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;

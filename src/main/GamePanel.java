@@ -164,23 +164,23 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				}
 				
 				// Enemies checking
-				for (int i = 0; i < map.enemies.size(); i++)
-				{
-					if (character.rectangle
-							.intersects(map.enemies.get(i).rectangle)) 
-					{
-						character.die = true;
-						character.jumpingLeft = character.jumpingRight = false;
-						character.isJumping = false;
-						character.landing = false;
-						
-						backgroundX -= velx;
-						backgroundX2 -= velx;
-						character.virtualRectangle.x -= velx;
-						map.updateMap(-velx);
-						character.die = true;
-					}
-				}
+//				for (int i = 0; i < map.enemies.size(); i++)
+//				{
+//					if (character.rectangle
+//							.intersects(map.enemies.get(i).rectangle)) 
+//					{
+//						character.die = true;
+//						character.jumpingLeft = character.jumpingRight = false;
+//						character.isJumping = false;
+//						character.landing = false;
+//						
+//						backgroundX -= velx;
+//						backgroundX2 -= velx;
+//						character.virtualRectangle.x -= velx;
+//						map.updateMap(-velx);
+//						character.die = true;
+//					}
+//				}
 				
 				if(character.rectangle.y + character.rectangle.height > 450)
 				{

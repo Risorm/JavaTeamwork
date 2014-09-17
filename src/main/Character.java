@@ -99,8 +99,7 @@ public class Character {
 		initImages();
 		rectangle = new Rectangle(15 * 20, 0, idleLeftImage.getWidth(null),
 				idleLeftImage.getHeight(null));
-		virtualRectangle = rectangle;
-
+		virtualRectangle = new Rectangle(rectangle);
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
 		canJump = false;

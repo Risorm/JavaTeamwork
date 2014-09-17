@@ -3,8 +3,7 @@ package main;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JPanel;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +17,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	Character character;
 	Map map;
 	
-	int velx = 0, vely = 0, backgroundX = 625, backgroundX2 = 0;
+	int velx = 0, vely = 0, backgroundX2 = 0, backgroundX = 0;
 	
 	int startY = 0;
 
@@ -31,11 +30,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
 	public GamePanel() {
 		
-		String bip = "res/background.mp3";
-		Media hit = new Media(bip);
-		MediaPlayer mediaPlayer = new MediaPlayer(hit);
-		mediaPlayer.play();
-		
+
 		addKeyListener(this);
 		setFocusable(true);
 		setBackground(Color.BLACK);
@@ -43,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 		background = Utils.loadImage("res/background.jpg");
 		foreground = Utils.loadImage("res/foreground.png");
+
 		scoreAnimation = new Animation("res/scoreanimations/goldCoin",9,6);
 		scoreAnimation.start();
 		livesImage = Utils.loadImage("res/healthanimations/heart.png");
@@ -62,17 +58,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		super.paint(g);
 		Graphics2D graphics2d = (Graphics2D) g;
 		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		graphics2d.drawImage(background, 625 - backgroundX, 0, null);
-		if (character.virtualRectangle.x + 300  >= background.getWidth(null)) {
-			graphics2d.drawImage(background, 2585 - backgroundX2, 0, null);
+		backgroundX2 = 625;
+		graphics2d.drawImage(background, 325 - character.virtualRectangle.x, 0, null);
+		System.out.println(character.virtualRectangle.x);
+		System.out.println(backgroundX + "X");
+		System.out.println(backgroundX + "X2");
+
+		if (character.virtualRectangle.x >= 2600) {
+			graphics2d.drawImage(background,backgroundX2 - character.virtualRectangle.x, 0, null);
 		}
 		graphics2d.drawImage(map.fullEndPointImage, map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
 		
 		map.drawMap(graphics2d);
 		character.drawCharacter(graphics2d);
-		graphics2d.drawImage(foreground, 625 - backgroundX, 0, null);
+		graphics2d.drawImage(foreground, 625 - backgroundX2, 0, null);
 		if (backgroundX >= foreground.getWidth(null)) {
-			graphics2d.drawImage(foreground, 625 - backgroundX2, 0, null);
+			graphics2d.drawImage(foreground, 625 - backgroundX, 0, null);
 		}
 		
 		graphics2d.drawImage(map.endPointImage, map.endPointRectangle.x, map.endPointRectangle.y, null);
@@ -149,6 +150,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					map.updateMap(-velx);
 				}
 			}
+			
 			if (character.rectangle.y <= startY - 2 * character.rectangle.height
 					&& character.isJumping == true) 
 			{

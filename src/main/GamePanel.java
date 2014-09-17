@@ -250,10 +250,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.walkingRight = false;
 
 			if (character.virtualRectangle.x > 300){
-				velx = -1;
-			}
+				velx = -Game.VELOCITY_X;	
+				}
 
-			velx = -Game.VELOCITY_X;
+
 
 		}
 

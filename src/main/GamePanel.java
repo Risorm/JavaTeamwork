@@ -31,10 +31,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
 	public GamePanel() {
 		
-		String bip = "res/background.mp3";
-		Media hit = new Media(bip);
-		MediaPlayer mediaPlayer = new MediaPlayer(hit);
-		mediaPlayer.play();
 		
 		addKeyListener(this);
 		setFocusable(true);

@@ -155,6 +155,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					map.updateMap(-velx);
 					character.die = true;
 				}
+<<<<<<< HEAD
 			}
 
 			if (character.rectangle.y <= startY - 2
@@ -191,6 +192,38 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 						character.canJump = true;
 						character.landing = false;
 						character.rectangle.y -= vely;
+=======
+				
+				// Enemies checking
+//				for (int i = 0; i < map.enemies.size(); i++)
+//				{
+//					if (character.rectangle
+//							.intersects(map.enemies.get(i).rectangle)) 
+//					{
+//						character.die = true;
+//						character.jumpingLeft = character.jumpingRight = false;
+//						character.isJumping = false;
+//						character.landing = false;
+//						
+//						backgroundX -= velx;
+//						backgroundX2 -= velx;
+//						character.virtualRectangle.x -= velx;
+//						map.updateMap(-velx);
+//						character.die = true;
+//					}
+//				}
+				
+				if(character.rectangle.y + character.rectangle.height > 450)
+				{
+					character.die = true;
+				}
+				// animation
+				
+				for (int i = 0; i < map.coins.size(); i++) {
+					if (character.rectangle.intersects(map.coins.get(i).rectangle)) {
+						map.coins.remove(map.coins.get(i));
+						score++;
+>>>>>>> origin/master
 					}
 				}
 			}

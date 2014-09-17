@@ -1,0 +1,7 @@
+- scrolling background - fix
+- death animation
+- level design
+- total score and high score
+- collision with enemies
+- exit level
+- left boundary

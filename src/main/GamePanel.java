@@ -16,7 +16,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	Character character;
 	Map map;
 
-	int velx = 0, vely = 0, backgroundX2 = 625, backgroundX = 0;
+	int velx = 0, vely = 0, backgroundX2 = 640, backgroundX = 0;
 
 	int startY = 0;
 
@@ -58,27 +58,36 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
-		if ((character.virtualRectangle.x - 2598)
+		if ((character.virtualRectangle.x - 2282)
 				% (background.getWidth(null) * 2) == 0)
 			backgroundX = 0;
-		if ((character.virtualRectangle.x - 3810)
+		if ((character.virtualRectangle.x - 5205)
 				% (background.getWidth(null) * 2) == 0)
 			backgroundX2 = 0;
 
-		graphics2d.drawImage(background, 325 - backgroundX2, 0, null);
-		if (character.virtualRectangle.x > 2610) {
-			graphics2d.drawImage(background, 325 - backgroundX, 0, null);
+		graphics2d.drawImage(background, 640 - backgroundX2, 0, null);
+		if (character.virtualRectangle.x > 2282) {
+			graphics2d.drawImage(background, 930 - backgroundX, 0, null);
 		}
+<<<<<<< HEAD
 
 //		graphics2d.drawImage(map.fullEndPointImage,
 //				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
+=======
+		System.out.println(backgroundX + "X");
+		System.out.println(backgroundX2 + "X2");
+		System.out.println(character.virtualRectangle.x + "C");
+		System.out.println(background.getWidth(null) + "B");
+		graphics2d.drawImage(map.fullEndPointImage,
+				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
+>>>>>>> origin/master
 
 		map.drawMap(graphics2d);
 		character.drawCharacter(graphics2d);
-		
-		graphics2d.drawImage(foreground, 325 - backgroundX2, 0, null);
-		if (character.virtualRectangle.x > 2610) {
-			graphics2d.drawImage(foreground, 325 - backgroundX, 0, null);
+
+		graphics2d.drawImage(foreground, 640 - backgroundX2, 0, null);
+		if (character.virtualRectangle.x > 2282) {
+			graphics2d.drawImage(foreground, 930 - backgroundX, 0, null);
 		}
 
 //		graphics2d.drawImage(map.endPointImage, map.endPointRectangle.x,

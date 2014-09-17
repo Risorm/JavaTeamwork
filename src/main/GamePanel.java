@@ -2,11 +2,9 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
-import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
@@ -29,10 +27,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	Image livesImage;
 
 	boolean gameOver;
-	int draw = 0;
 	
 	int[] backgroundPositionsX;
-	
+	int[] foregroundPositionsX;
 	public GamePanel() {
 
 		addKeyListener(this);
@@ -50,10 +47,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		gameOver = false;
 		
 		backgroundPositionsX = new int[3];
-		
+		foregroundPositionsX = new int[3];
 		for(int i = 0; i < backgroundPositionsX.length;i++)
 		{
 			backgroundPositionsX[i] = i * 1535;
+			foregroundPositionsX[i] = i * 1535;
 		}
 		
 		score = 0;
@@ -81,10 +79,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		map.drawMap(graphics2d);
 		character.drawCharacter(graphics2d);
 
-//		graphics2d.drawImage(foreground, 640 - backgroundX2, 0, null);
-//		if (character.virtualRectangle.x > 2282) {
-//			graphics2d.drawImage(foreground, 930 - backgroundX, 0, null);
-//		}
+		for(int position : foregroundPositionsX)
+		{
+				graphics2d.drawImage(foreground,position,0,null);
+		}
 		
 		for (int i = 0; i < lives; i++) {
 			graphics2d.drawImage(livesImage, i * 39, 0, null);
@@ -146,9 +144,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			if(character.rectangle.x + character.rectangle.width > 340 || character.virtualRectangle.x + character.rectangle.width > 340)
 			{
 				character.rectangle.x = 15 * 20;
-				for(int position : backgroundPositionsX)
+				for(int i = 0; i < backgroundPositionsX.length; i++)
 				{
-					position += velx;
+					backgroundPositionsX[i] -= velx;
+					foregroundPositionsX[i] -= velx;
 				}
 				map.redirectMap(velx);
 				for (int i = 0; i < map.tiles.size(); i++) {
@@ -158,9 +157,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 							.intersects(map.tiles.get(i).tileRectangle)
 							&& (character.walkingLeft == true || character.walkingRight == true))
 						{
-							for(int position : backgroundPositionsX)
+							for(int j = 0; j < backgroundPositionsX.length; j++)
 							{
-								position -= velx;
+								backgroundPositionsX[j] += velx;
+								foregroundPositionsX[j] += velx;
 							}
 							character.virtualRectangle.x -= velx;
 							map.redirectMap(-velx);

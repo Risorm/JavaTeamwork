@@ -37,11 +37,11 @@ public class Character {
 	boolean die;
 
 	public void initImages() {
-		walkRightAnimation = new Animation("res/canimations/walkRight", 3, 6);
-		walkLeftAnimation = new Animation("res/canimations/walkLeft", 3, 6);
+		walkRightAnimation = new Animation("res/canimations/walkRight", 3, Game.DELAY_CHARACTER_WALKING);
+		walkLeftAnimation = new Animation("res/canimations/walkLeft", 3, Game.DELAY_CHARACTER_WALKING);
 
-		dieLeftAnimation = new Animation("res/canimations/dyingLeft", 3, 60);
-		dieRightAnimation = new Animation("res/canimations/dyingRight", 3, 60);
+		dieLeftAnimation = new Animation("res/canimations/dyingLeft", 3, Game.DELAY_CHARACTER_DYING);
+		dieRightAnimation = new Animation("res/canimations/dyingRight", 3, Game.DELAY_CHARACTER_DYING);
 
 		idleRightImage = Utils.loadImage("res/canimations/idleRight.png");
 		idleLeftImage = Utils.loadImage("res/canimations/idleLeft.png");
@@ -69,9 +69,9 @@ public class Character {
 		} else if (walkingRight == false && walkingLeft == false) {
 			walkRightAnimation.stop();
 			walkLeftAnimation.stop();
-		} else if (landing == true && walkingRight == true) {
+		} else if (landing == true && walkingRight == true && die == false) {
 			graphics.drawImage(landingRightImage,rectangle.x,rectangle.y,null);
-		} else if (landing == true && walkingLeft == true) {
+		} else if (landing == true && walkingLeft == true && die == false) {
 			graphics.drawImage(landingLeftImage,rectangle.x,rectangle.y,null);
 		} else if (isJumping == true && walkingLeft == true) {
 			graphics.drawImage(jumpLeftImage,rectangle.x,rectangle.y,null);

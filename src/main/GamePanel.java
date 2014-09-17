@@ -89,7 +89,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			graphics2d.drawImage(livesImage, i * 39, 0, null);
 		}
 
-		scoreAnimation.drawAnimation(graphics2d, 570, 10);
+		scoreAnimation.drawAnimation(graphics2d, 570, 2);
 
 		graphics2d.setColor(Color.WHITE);
 		graphics2d.setFont(new Font("Serif", Font.BOLD, 20));
@@ -195,7 +195,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				}
 			}
 			
-			if(character.rectangle.y + character.rectangle.height > 450)
+			if(character.rectangle.y + character.rectangle.height > 460)
 			{
 				character.die = true;
 			}
@@ -250,10 +250,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.walkingRight = false;
 
 			if (character.virtualRectangle.x > 300){
-				velx = -Game.VELOCITY_X;	
-				}
+				velx = -1;
+			}
 
-
+			velx = -Game.VELOCITY_X;
 
 		}
 

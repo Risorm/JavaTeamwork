@@ -12,10 +12,15 @@ public class Character {
 
 
 	LinkedList<Image> walkRightAnimation;
-	LinkedList<Image> walkLeftAnimation;
-	LinkedList<Image> jumpRightAnimation;
-	LinkedList<Image> jumpLeftAnimation;
-
+	LinkedList<Image> walkLeftAnimation;	
+	LinkedList<Image> dieLeftAnimation;
+	LinkedList<Image> dieRightAnimation;
+	
+	Image jumpRightImage;
+	Image jumpLeftImage;
+	Image landingLeftImage;
+	Image landingRightImage;
+	
 	Image idleRightImage;
 	Image idleLeftImage;
 	public Image currentImage;
@@ -32,24 +37,31 @@ public class Character {
 	boolean isJumping;
 	boolean canJump;
 
+	boolean die;
 	public void initImages() {
 		walkRightAnimation = new LinkedList<>();
 		walkLeftAnimation = new LinkedList<>();
-		jumpRightAnimation = new LinkedList<>();
-		jumpLeftAnimation = new LinkedList<>();
-
+		dieLeftAnimation = new LinkedList<>();
+		dieRightAnimation = new LinkedList<>();
+		
 		for (int i = 1; i <= 3; i++) {
 			walkRightAnimation.add(Utils.loadImage("res/canimations/walkRight"
 					+ i + ".png"));
 			walkLeftAnimation.add(Utils.loadImage("res/canimations/walkLeft"
 					+ i + ".png"));
-			jumpRightAnimation.add(Utils.loadImage("res/canimations/jumpRight"
+			dieLeftAnimation.add(Utils.loadImage("res/canimations/dyingLeft"
 					+ i + ".png"));
-			jumpLeftAnimation.add(Utils.loadImage("res/canimations/jumpLeft"
+			dieRightAnimation.add(Utils.loadImage("res/canimations/dyingRight"
 					+ i + ".png"));
 		}
 		idleRightImage = Utils.loadImage("res/canimations/idleRight.png");
 		idleLeftImage = Utils.loadImage("res/canimations/idleLeft.png");
+		
+		jumpLeftImage = Utils.loadImage("res/canimations/jumpingLeft.png");
+		jumpRightImage = Utils.loadImage("res/canimations/jumpingRight.png");
+		
+		landingLeftImage = Utils.loadImage("res/canimations/landingLeft.png");
+		landingRightImage = Utils.loadImage("res/canimations/landingRight.png");
 	}
 
 	public void update() {
@@ -76,17 +88,23 @@ public class Character {
 		} else if (walkingRight == false && walkingLeft == false) {
 			currentFrame = 0;
 		} else if (landing == true && walkingRight == true) {
-			currentImage = jumpRightAnimation.get(2);
-			// currentFrame++;
+			currentImage = landingRightImage;
 		} else if (landing == true && walkingLeft == true) {
-			currentImage = jumpLeftAnimation.get(2);
-			// currentFrame++;
+			currentImage = landingLeftImage;
 		} else if (isJumping == true && walkingLeft == true) {
-			currentImage = jumpLeftAnimation.get(1);
+			currentImage = jumpLeftImage;
 		} else if (isJumping == true && walkingRight == true) {
-			currentImage = jumpRightAnimation.get(1);
+			currentImage = jumpRightImage;
 		}
-
+		if(die == true && walkingLeft == true)
+		{
+			currentImage = dieLeftAnimation.get(currentFrame);
+			delay++;
+			if (delay >= 6) {
+				currentFrame++;
+				delay = 0;
+			}
+		}
 		if (currentFrame >= 3)
 			currentFrame = 0;
 
@@ -97,11 +115,14 @@ public class Character {
 		rectangle = new Rectangle(15 * 20, 0, idleLeftImage.getWidth(null),
 				idleLeftImage.getHeight(null));
 		virtualRectangle = rectangle;
+		
 		walkingLeft = walkingRight = false;
 		jumpingRight = jumpingLeft = false;
 		canJump = false;
-		landing = false;
+		landing = true;
 		idleRight = idleLeft = false;
+		die = false;
+		
 		currentFrame = 0;
 		currentImage = idleRightImage;
 	}

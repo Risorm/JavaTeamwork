@@ -13,19 +13,22 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	
 	Image background;
 	Image foreground;
+	
 	Character character;
-	int velx = 0, vely = 0, velx2 = 625, velx3 = 0;
 	Map map;
+	
+	int velx = 0, vely = 0, backgroundX = 625, backgroundX2 = 0;
+	
 	int startY = 0;
 
 	int score;
 	int lives;
 	LinkedList<Image> scoreAnimation;
-
 	Image livesImage;
 
 	int delayForScoreAnimation;
 	int currentFrameScore;
+	
 	boolean gameOver;
 	
 	public GamePanel() {
@@ -61,17 +64,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		super.paint(g);
 		Graphics2D graphics2d = (Graphics2D) g;
 		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		graphics2d.drawImage(background, 625 - velx2, 0, null);
-		if (velx2 >= background.getWidth(null)) {
-			graphics2d.drawImage(background, 625 - velx3, 0, null);
+		graphics2d.drawImage(background, 625 - backgroundX, 0, null);
+		if (backgroundX >= background.getWidth(null)) {
+			graphics2d.drawImage(background, 625 - backgroundX2, 0, null);
 		}
 		map.drawMap(graphics2d);
 
 		graphics2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
-		graphics2d.drawImage(foreground, 625 - velx2, 0, null);
-		if (velx2 >= foreground.getWidth(null)) {
-			graphics2d.drawImage(foreground, 625 - velx3, 0, null);
+		graphics2d.drawImage(foreground, 625 - backgroundX, 0, null);
+		if (backgroundX >= foreground.getWidth(null)) {
+			graphics2d.drawImage(foreground, 625 - backgroundX2, 0, null);
 		}
 		for (int i = 0; i < lives; i++) {
 			graphics2d.drawImage(livesImage, i * 39, 0, null);
@@ -116,8 +119,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				character.landing = true;
 			}
 			//character.virtualRectangle.x += velx;
-			velx2 += velx;
-			velx3 += velx;
+			backgroundX += velx;
+			backgroundX2 += velx;
 			map.updateMap(velx);
 			for (int i = 0; i < map.tiles.size(); i++) 
 			{
@@ -127,8 +130,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 							.intersects(map.tiles.get(i).tileRectangle)
 							&& (character.walkingLeft == true || character.walkingRight == true))
 					{
-						velx2 -= velx;
-						velx3 -= velx;
+						backgroundX -= velx;
+						backgroundX2 -= velx;
 						//character.virtualRectangle.x -= velx;
 						map.updateMap(-velx);
 					}
@@ -141,8 +144,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				character.landing = true;
 			}
 			// character.virtualRectangle.x += velx;
-			velx2 += velx;
-			velx3 += velx;
+			backgroundX += velx;
+			backgroundX2 += velx;
 			map.updateMap(velx);
 			for (int i = 0; i < map.tiles.size(); i++)
 			{
@@ -152,8 +155,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 							.intersects(map.tiles.get(i).tileRectangle)
 							&& (character.walkingLeft == true || character.walkingRight == true)) 
 					{
-						velx2 -= velx;
-						velx3 -= velx;
+						backgroundX -= velx;
+						backgroundX2 -= velx;
 						// character.virtualRectangle.x -= velx;
 						map.updateMap(-velx);
 					}
@@ -162,7 +165,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			if ((character.rectangle.x - background.getWidth(null))
 					% (2 * background.getWidth(null)) == 0) 
 			{
-				velx2 = 0;
+				backgroundX = 0;
 			}
 			character.rectangle.y += vely;
 			for (int i = 0; i < map.tiles.size(); i++) 
@@ -198,7 +201,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.update();
 			repaint();
 			try {
-				theThread.sleep(10);
+				Thread.sleep(8);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

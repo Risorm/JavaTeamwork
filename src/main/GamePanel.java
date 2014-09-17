@@ -2,7 +2,6 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.LinkedList;
 
 import javax.swing.JPanel;
 
@@ -23,12 +22,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	int score;
 	int lives;
-	LinkedList<Image> scoreAnimation;
+	Animation scoreAnimation;
 	Image livesImage;
 
-	int delayForScoreAnimation;
-	int currentFrameScore;
-	
 	boolean gameOver;
 	
 	public GamePanel() {
@@ -44,18 +40,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				"res/foreground.png");
 		gameOver = false;
 		map = new Map();
-		currentFrameScore = 0;
 		score = 0;
 		lives = 3;
-		delayForScoreAnimation = 0;
-		scoreAnimation = new LinkedList<>();
+		scoreAnimation = new Animation("res/scoreanimations/goldCoin",9,6);
 		livesImage = Utils.loadImage("res/healthanimations/heart.png");
-		for (int i = 1; i <= 9; i++) {
-			scoreAnimation.add(Utils.loadImage("res/scoreanimations/goldCoin"
-					+ i + ".png"));
-		}
 		character = new Character();
-		
+		scoreAnimation.start();
 		theThread = new Thread(this);
 		theThread.start();
 	}
@@ -70,8 +60,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		}
 		map.drawMap(graphics2d);
 
-		graphics2d.drawImage(character.currentImage, character.rectangle.x,
-				character.rectangle.y, this);
+		character.drawCharacter(graphics2d);
 		graphics2d.drawImage(foreground, 625 - backgroundX, 0, null);
 		if (backgroundX >= foreground.getWidth(null)) {
 			graphics2d.drawImage(foreground, 625 - backgroundX2, 0, null);
@@ -80,8 +69,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			graphics2d.drawImage(livesImage, i * 39, 0, null);
 		}
 
-		graphics2d.drawImage(scoreAnimation.get(currentFrameScore), 570, 0,
-				null);
+		scoreAnimation.drawAnimation(graphics2d, 570, 10);
+		
 		graphics2d.setColor(Color.WHITE);
 		graphics2d.setFont(new Font("Serif", Font.BOLD, 20));
 		graphics2d.drawString(" : " + score, 590, 25);
@@ -182,14 +171,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				}
 			}
 			// animation
-			delayForScoreAnimation++;
-			if (delayForScoreAnimation >= 10)
-			{
-				delayForScoreAnimation = 0;
-				currentFrameScore++;
-			}
-			if (currentFrameScore > scoreAnimation.size() - 1)
-				currentFrameScore = 0;
+			scoreAnimation.update();
 			for (int i = 0; i < map.coins.size(); i++)
 			{
 				if (character.rectangle.intersects(map.coins.get(i).rectangle)) 

@@ -1,64 +1,48 @@
 package main;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
-import java.util.LinkedList;
 
 public class Enemy {
 
 	public Rectangle rectangle;
-	int currentFrame;
-	int delay = 0;
 	int startPositionX = 0;
-	LinkedList<Image> walkRightAnimation;
-	LinkedList<Image> walkLeftAnimation;
+	
 	int radius;
-
+	
+	Animation walkRighAnimation;
+	Animation walkLeftAnimation;
+	
 	boolean walkingRight;
 	boolean walkingLeft;
-
+	
 	int speed;
 	public void initImages() {
-		walkRightAnimation = new LinkedList<>();
-		walkLeftAnimation = new LinkedList<>();
-
-		for (int i = 1; i <= 3; i++) {
-			walkRightAnimation.add(Utils.loadImage("res/eanimations/walkRight"
-					+ i + ".png"));
-			walkLeftAnimation.add(Utils.loadImage("res/eanimations/walkLeft"
-					+ i + ".png"));
-		}
+		walkRighAnimation = new Animation("res/eanimations/walkRight",3,6);
+		walkLeftAnimation = new Animation("res/eanimations/walkLeft",3,6);
 	}
 
 	public void update() {
 		updateMovement();
 		if (walkingRight == true) {
-			delay++;
-			if (delay >= 6) {
-				currentFrame++;
-				delay = 0;
-			}
+			walkLeftAnimation.stop();
+			walkRighAnimation.start();
+			walkRighAnimation.update();
 		} else if (walkingLeft == true) {
-			delay++;
-			if (delay >= 6) {
-				currentFrame++;
-				delay = 0;
-			}
+			walkLeftAnimation.start();
+			walkRighAnimation.stop();
+			walkLeftAnimation.update();
 		} else if (walkingRight == false && walkingLeft == false) {
-			currentFrame = 0;
+			walkLeftAnimation.stop();
+			walkRighAnimation.stop();
 		}
-		if (currentFrame >= 3)
-			currentFrame = 0;
 	}
 
 	public void drawEnemy(Graphics2D graphics) {
 		if (walkingLeft == true)
-			graphics.drawImage(walkLeftAnimation.get(currentFrame),
-					rectangle.x, rectangle.y, null);
+			walkLeftAnimation.drawAnimation(graphics, rectangle.x, rectangle.y);
 		else if (walkingRight == true)
-			graphics.drawImage(walkRightAnimation.get(currentFrame),
-					rectangle.x, rectangle.y, null);
+			walkRighAnimation.drawAnimation(graphics, rectangle.x, rectangle.y);
 	}
 
 	public void updateMovement() {
@@ -84,7 +68,6 @@ public class Enemy {
 		walkingLeft = false;
 		walkingRight = true;
 		startPositionX = x * 20;
-		currentFrame = 0;
 		this.radius = radius * 20;
 	}
 }

@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 
 public class Enemy {
@@ -13,6 +14,9 @@ public class Enemy {
 	Animation walkRighAnimation;
 	Animation walkLeftAnimation;
 	
+	Image idleRightImage;
+	Image idleLeftImage;
+	
 	boolean walkingRight;
 	boolean walkingLeft;
 	
@@ -20,6 +24,9 @@ public class Enemy {
 	public void initImages() {
 		walkRighAnimation = new Animation("res/eanimations/walkRight",3,6);
 		walkLeftAnimation = new Animation("res/eanimations/walkLeft",3,6);
+		
+		idleLeftImage = Utils.loadImage("res/eanimations/idleLeft.png");
+		idleRightImage = Utils.loadImage("res/eanimations/idleRight.png");
 	}
 
 	public void update() {

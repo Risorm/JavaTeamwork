@@ -28,24 +28,24 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	boolean gameOver;
 	
 	public GamePanel() {
-
 		addKeyListener(this);
 		setFocusable(true);
 		setBackground(Color.BLACK);
 		setDoubleBuffered(true);
 
-		background = Toolkit.getDefaultToolkit().createImage(
-				"res/background.jpg");
-		foreground = Toolkit.getDefaultToolkit().createImage(
-				"res/foreground.png");
+		background = Utils.loadImage("res/background.jpg");
+		foreground = Utils.loadImage("res/foreground.png");
+		scoreAnimation = new Animation("res/scoreanimations/goldCoin",9,6);
+		scoreAnimation.start();
+		livesImage = Utils.loadImage("res/healthanimations/heart.png");
+		
 		gameOver = false;
-		map = new Map();
+		
 		score = 0;
 		lives = 3;
-		scoreAnimation = new Animation("res/scoreanimations/goldCoin",9,6);
-		livesImage = Utils.loadImage("res/healthanimations/heart.png");
+		map = new Map();
 		character = new Character();
-		scoreAnimation.start();
+		
 		theThread = new Thread(this);
 		theThread.start();
 	}
@@ -58,12 +58,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if (character.virtualRectangle.x + 300  >= background.getWidth(null)) {
 			graphics2d.drawImage(background, 2585 - backgroundX2, 0, null);
 		}
+		graphics2d.drawImage(map.fullEndPointImage, map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
+		
 		map.drawMap(graphics2d);
 		character.drawCharacter(graphics2d);
 		graphics2d.drawImage(foreground, 625 - backgroundX, 0, null);
 		if (backgroundX >= foreground.getWidth(null)) {
 			graphics2d.drawImage(foreground, 625 - backgroundX2, 0, null);
 		}
+		
+		graphics2d.drawImage(map.endPointImage, map.endPointRectangle.x, map.endPointRectangle.y, null);
+		
 		for (int i = 0; i < lives; i++) {
 			graphics2d.drawImage(livesImage, i * 39, 0, null);
 		}
@@ -125,6 +130,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}
+			// Enemies checking
+			for (int i = 0; i < map.enemies.size(); i++) 
+			{
+				if(character.rectangle.intersects(map.enemies.get(i).rectangle))
+				{
+					backgroundX -= velx;
+					backgroundX2 -= velx;
+					character.virtualRectangle.x -= velx;
+					map.updateMap(-velx);
+				}
+			}
+			
 			if (character.rectangle.y <= startY - 2 * character.rectangle.height
 					&& character.isJumping == true) 
 			{
@@ -169,6 +186,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}
+			
 			// animation
 			scoreAnimation.update();
 			for (int i = 0; i < map.coins.size(); i++)

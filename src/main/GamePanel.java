@@ -118,6 +118,19 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}
+			else {
+				character.rectangle.y += vely;
+				for (int i = 0; i < map.tiles.size(); i++) {
+					if (map.tiles.get(i).collidable == true) {
+						if (character.rectangle
+								.intersects(map.tiles.get(i).tileRectangle)) {
+							character.canJump = true;
+							character.landing = false;
+							character.rectangle.y -= vely;
+						}
+					}
+				}
+			}
 			if (character.rectangle.y <= startY - 2
 					* character.rectangle.height
 					&& character.isJumping == true) {
@@ -140,6 +153,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}
+			
+			if ((character.rectangle.x - background.getWidth(null))
+					% (2 * background.getWidth(null)) == 0) {
+				backgroundX = 0;
+			}
+			
+			
+			if(character.rectangle.y + character.rectangle.height > 460)
+			{
+				character.die = true;
+			}
+			
 			// Enemies checking
 			for (int i = 0; i < map.enemies.size(); i++) {
 				if (character.rectangle
@@ -156,49 +181,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					character.die = true;
 				}
 			}
-
-			if (character.rectangle.y <= startY - 2
-					* character.rectangle.height
-					&& character.isJumping == true) {
-				character.isJumping = false;
-				character.landing = true;
-			}
-			character.virtualRectangle.x += velx;
-			backgroundX += velx;
-			backgroundX2 += velx;
-			map.updateMap(velx);
-			for (int i = 0; i < map.tiles.size(); i++) {
-				if (map.tiles.get(i).collidable == true) {
-					if (character.rectangle
-							.intersects(map.tiles.get(i).tileRectangle)
-							&& (character.walkingLeft == true || character.walkingRight == true)) {
-						backgroundX -= velx;
-						backgroundX2 -= velx;
-						character.virtualRectangle.x -= velx;
-						map.updateMap(-velx);
-					}
-				}
-			}
-			if ((character.rectangle.x - background.getWidth(null))
-					% (2 * background.getWidth(null)) == 0) {
-				backgroundX = 0;
-			}
-			character.rectangle.y += vely;
-			for (int i = 0; i < map.tiles.size(); i++) {
-				if (map.tiles.get(i).collidable == true) {
-					if (character.rectangle
-							.intersects(map.tiles.get(i).tileRectangle)) {
-						character.canJump = true;
-						character.landing = false;
-						character.rectangle.y -= vely;
-					}
-				}
-			}
 			
-			if(character.rectangle.y + character.rectangle.height > 460)
-			{
-				character.die = true;
-			}
 			// animation
 			
 			for (int i = 0; i < map.coins.size(); i++) {

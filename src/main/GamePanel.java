@@ -69,18 +69,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if (character.virtualRectangle.x > 2282) {
 			graphics2d.drawImage(background, 930 - backgroundX, 0, null);
 		}
-<<<<<<< HEAD
+
 
 //		graphics2d.drawImage(map.fullEndPointImage,
 //				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
-=======
+
 		System.out.println(backgroundX + "X");
 		System.out.println(backgroundX2 + "X2");
 		System.out.println(character.virtualRectangle.x + "C");
 		System.out.println(background.getWidth(null) + "B");
 		graphics2d.drawImage(map.fullEndPointImage,
 				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
->>>>>>> origin/master
 
 		map.drawMap(graphics2d);
 		character.drawCharacter(graphics2d);

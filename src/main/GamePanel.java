@@ -2,8 +2,11 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedList;
 
 import javax.swing.JPanel;
+
+import com.sun.java_cup.internal.runtime.virtual_parse_stack;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +30,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 	boolean gameOver;
 	int draw = 0;
+	
+	int[] backgroundPositionsX;
+	
 	public GamePanel() {
 
 		addKeyListener(this);
@@ -42,7 +48,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		livesImage = Utils.loadImage("res/healthanimations/heart.png");
 
 		gameOver = false;
-
+		
+		backgroundPositionsX = new int[3];
+		
+		for(int i = 0; i < backgroundPositionsX.length;i++)
+		{
+			backgroundPositionsX[i] = i * 1535;
+		}
+		
 		score = 0;
 		lives = 3;
 		map = new Map();
@@ -58,19 +71,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
 
-		graphics2d.drawImage(background,backgroundX2, 0, null);
-		graphics2d.drawImage(background,backgroundX, 0, null);
-
+		for(int position : backgroundPositionsX)
+		{
+				graphics2d.drawImage(background,position,0,null);
+		}
 //		graphics2d.drawImage(map.fullEndPointImage,
 //				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
 
 		map.drawMap(graphics2d);
 		character.drawCharacter(graphics2d);
 
-		graphics2d.drawImage(foreground, 640 - backgroundX2, 0, null);
-		if (character.virtualRectangle.x > 2282) {
-			graphics2d.drawImage(foreground, 930 - backgroundX, 0, null);
-		}
+//		graphics2d.drawImage(foreground, 640 - backgroundX2, 0, null);
+//		if (character.virtualRectangle.x > 2282) {
+//			graphics2d.drawImage(foreground, 930 - backgroundX, 0, null);
+//		}
 		
 		for (int i = 0; i < lives; i++) {
 			graphics2d.drawImage(livesImage, i * 39, 0, null);
@@ -132,8 +146,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			if(character.rectangle.x + character.rectangle.width > 340 || character.virtualRectangle.x + character.rectangle.width > 340)
 			{
 				character.rectangle.x = 15 * 20;
-				backgroundX -= velx;
-				backgroundX2 -= velx;
+				for(int position : backgroundPositionsX)
+				{
+					position += velx;
+				}
 				map.redirectMap(velx);
 				for (int i = 0; i < map.tiles.size(); i++) {
 				if (map.tiles.get(i).collidable == true) 
@@ -142,8 +158,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 							.intersects(map.tiles.get(i).tileRectangle)
 							&& (character.walkingLeft == true || character.walkingRight == true))
 						{
-							backgroundX -= velx;
-							backgroundX2 -= velx;
+							for(int position : backgroundPositionsX)
+							{
+								position -= velx;
+							}
 							character.virtualRectangle.x -= velx;
 							map.redirectMap(-velx);
 						}
@@ -154,18 +172,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			{
 				character.rectangle.x = 0;
 			}
-			if(character.virtualRectangle.x + character.rectangle.width % 1535 == 0)
-				draw = (character.virtualRectangle.x + character.rectangle.width) / 1535;
-				
-			if(backgroundX + 1535 < 640)
-				backgroundX = backgroundX2 + 1535;
-			if(backgroundX2 + 1535 < 640)
-				backgroundX2 = backgroundX + 1535;
-			if(character.rectangle.y + character.rectangle.height > 460)
-			{
-				character.die = true;
-			}
-			
 			// Enemies checking
 			/*for (int i = 0; i < map.enemies.size(); i++) {
 				if (character.rectangle

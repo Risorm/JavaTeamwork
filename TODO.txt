@@ -5,3 +5,4 @@
 - collision with enemies
 - exit level
 - left boundary
+- GAME OVER / YOU WIN

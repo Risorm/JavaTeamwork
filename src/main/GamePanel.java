@@ -90,10 +90,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			graphics2d.drawImage(foreground, 930 - backgroundX, 0, null);
 		}
 		
-        if (velx < 0) {
-            graphics2d.drawImage(background, 640 - character.virtualRectangle.x, 0, null);
-            character.drawCharacter(character.idleLeftImage, left, 0, null);
-        }
+       // if (velx < 0) {
+        //    graphics2d.drawImage(background, 640 - character.virtualRectangle.x, 0, null);
+        //    character.drawCharacter(character.idleLeftImage, left, 0, null);
+       // }
 
 //		graphics2d.drawImage(map.endPointImage, map.endPointRectangle.x,
 //				map.endPointRectangle.y, null);

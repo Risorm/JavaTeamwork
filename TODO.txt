@@ -3,3 +3,4 @@
 - level design
 - total score and high score
 - collision with enemies
+- exit level

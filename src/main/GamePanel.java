@@ -17,6 +17,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	Map map;
 
 	int velx = 0, vely = 0, backgroundX2 = 640, backgroundX = 0;
+	int left = 150;
 
 	int startY = 0;
 
@@ -88,6 +89,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if (character.virtualRectangle.x > 2282) {
 			graphics2d.drawImage(foreground, 930 - backgroundX, 0, null);
 		}
+		
+        if (velx < 0) {
+            graphics2d.drawImage(background, 640 - character.virtualRectangle.x, 0, null);
+            character.drawCharacter(character.idleLeftImage, left, 0, null);
+        }
 
 //		graphics2d.drawImage(map.endPointImage, map.endPointRectangle.x,
 //				map.endPointRectangle.y, null);
@@ -134,6 +140,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.virtualRectangle.x += velx;
 			backgroundX += velx;
 			backgroundX2 += velx;
+			left += velx;
 			map.updateMap(velx);
 			for (int i = 0; i < map.tiles.size(); i++) {
 				if (map.tiles.get(i).collidable == true) {

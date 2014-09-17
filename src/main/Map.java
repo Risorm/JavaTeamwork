@@ -81,25 +81,34 @@ public class Map {
 		}
 	}
 
-	public void updateMap(int movingDir) 
+	public void redirectMap(int movingDir) 
 	{
 		//moving
 		for(Enemy enemy : enemies)
 		{
 			enemy.rectangle.x -= movingDir;
 			enemy.centerX -= movingDir;
-			enemy.update();
 		}
 		for(Coin coin : coins)
 		{
 			coin.rectangle.x -= movingDir;
-			coin.update();
 		}
 		for (Tile tile : tiles)
 		{
 			tile.tileRectangle.x -= movingDir;
 		}
 		endPointRectangle.x -= movingDir;
+	}
+	public void updateMap()
+	{
+		for(Enemy enemy : enemies)
+		{
+			enemy.update();
+		}
+		for(Coin coin : coins)
+		{
+			coin.update();
+		}
 	}
 	public void resetPositions()
 	{

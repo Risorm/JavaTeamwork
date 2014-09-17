@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 public class Enemy {
 
 	public Rectangle rectangle;
+	public Rectangle startRectangle;
 	int startPositionX = 0;
 	
 	int radius;
@@ -71,6 +72,7 @@ public class Enemy {
 	public Enemy(int x, int y, int radius,int speed) {
 		initImages();
 		rectangle = new Rectangle(x * 20, y * 20, 40, 60);
+		startRectangle = new Rectangle(rectangle);
 		this.speed = speed;
 		walkingLeft = false;
 		walkingRight = true;

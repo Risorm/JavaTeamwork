@@ -65,13 +65,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		Graphics2D graphics2d = (Graphics2D) g;
 		graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		graphics2d.drawImage(background, 625 - backgroundX, 0, null);
-		if (backgroundX >= background.getWidth(null)) {
-			graphics2d.drawImage(background, 625 - backgroundX2, 0, null);
+		if (character.virtualRectangle.x + 300  >= background.getWidth(null)) {
+			graphics2d.drawImage(background, 2585 - backgroundX2, 0, null);
 		}
 		map.drawMap(graphics2d);
-
+System.out.println(character.virtualRectangle.x);
 		graphics2d.drawImage(character.currentImage, character.rectangle.x,
 				character.rectangle.y, this);
+		if (velx == -1) {
+            graphics2d.drawImage(background, 625 - backgroundX, 0, null);
+            graphics2d.drawImage(character.currentImage, 0, 0, null);
+    }
 		graphics2d.drawImage(foreground, 625 - backgroundX, 0, null);
 		if (backgroundX >= foreground.getWidth(null)) {
 			graphics2d.drawImage(foreground, 625 - backgroundX2, 0, null);
@@ -118,7 +122,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				character.isJumping = false;
 				character.landing = true;
 			}
-			//character.virtualRectangle.x += velx;
+			character.virtualRectangle.x += velx;
 			backgroundX += velx;
 			backgroundX2 += velx;
 			map.updateMap(velx);
@@ -132,7 +136,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					{
 						backgroundX -= velx;
 						backgroundX2 -= velx;
-						//character.virtualRectangle.x -= velx;
+						character.virtualRectangle.x -= velx;
 						map.updateMap(-velx);
 					}
 				}
@@ -143,7 +147,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 				character.isJumping = false;
 				character.landing = true;
 			}
-			// character.virtualRectangle.x += velx;
+			character.virtualRectangle.x += velx;
 			backgroundX += velx;
 			backgroundX2 += velx;
 			map.updateMap(velx);
@@ -157,7 +161,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					{
 						backgroundX -= velx;
 						backgroundX2 -= velx;
-						// character.virtualRectangle.x -= velx;
+						character.virtualRectangle.x -= velx;
 						map.updateMap(-velx);
 					}
 				}

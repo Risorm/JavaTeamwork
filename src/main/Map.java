@@ -10,6 +10,9 @@ public class Map {
 	public LinkedList<Enemy> enemies;
 	public LinkedList<Coin> coins;
 	
+	public Image endPointImage;
+	public Rectangle endPointRectangle;
+	public Image fullEndPointImage;
 	public Map() {
 		loadMap();
 	}
@@ -19,9 +22,15 @@ public class Map {
 		enemies = new LinkedList<>();
 		coins = new LinkedList<>();
 		
+		endPointImage = Utils.loadImage("res/endforeground2.png");
+		fullEndPointImage = Utils.loadImage("res/endforeground.png");
+		
 		int y = 0;
 		try {
 			Scanner scanner = new Scanner(new File("res/map.txt"));
+			String[] endPointLine = scanner.nextLine().split(" ");
+			endPointRectangle = new Rectangle(Integer.parseInt(endPointLine[0]) * 20,Integer.parseInt(endPointLine[1]) * 20,
+					endPointImage.getWidth(null),endPointImage.getHeight(null));
 			while (scanner.hasNextLine()) {
 				String tempLine = scanner.nextLine();
 				for (int x = 0; x < tempLine.length(); x++) {
@@ -85,7 +94,7 @@ public class Map {
 		{
 			tile.tileRectangle.x -= movingDir;
 		}
-		
+		endPointRectangle.x -= movingDir;
 	}
 }
 

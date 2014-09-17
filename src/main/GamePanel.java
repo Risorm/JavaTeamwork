@@ -61,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 		if ((character.virtualRectangle.x - 2282)
 				% (background.getWidth(null) * 2) == 0)
 			backgroundX = 0;
-		if ((character.virtualRectangle.x - 5205)
+		if ((character.virtualRectangle.x - 5882)
 				% (background.getWidth(null) * 2) == 0)
 			backgroundX2 = 0;
 

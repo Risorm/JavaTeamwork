@@ -102,7 +102,7 @@ class Tile {
 		tileRectangle = new Rectangle(x, y, tileImage.getWidth(null),
 				tileImage.getHeight(null));
 		startRectangle = tileRectangle;
-		if (type == 'V' || type == 'Z')
+		if (type == 'g' || type == 'h' || type == 'j' || type == 'k' || type == 'e')
 			collidable = true;
 		else
 			collidable = false;

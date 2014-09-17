@@ -198,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			character.update();
 			repaint();
 			try {
-				theThread.sleep(10);
+				theThread.sleep(8);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

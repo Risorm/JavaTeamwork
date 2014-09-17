@@ -2,11 +2,13 @@ package main;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.JPanel;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 	private static final long serialVersionUID = 1L;
+	
 	
 	Thread theThread;
 	
@@ -28,6 +30,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	boolean gameOver;
 	
 	public GamePanel() {
+		
+		String bip = "res/background.mp3";
+		Media hit = new Media(bip);
+		MediaPlayer mediaPlayer = new MediaPlayer(hit);
+		mediaPlayer.play();
+		
 		addKeyListener(this);
 		setFocusable(true);
 		setBackground(Color.BLACK);

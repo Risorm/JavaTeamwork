@@ -5,9 +5,9 @@ import javax.swing.JFrame;
 public class Game extends JFrame {
 
 	public static final int DELAY_ENEMY_ANIMATIONS = 6;
-	public static final int DELAY_COINS_ANIMATIONS = 12;
-	public static final int DELAY_SCORE_ANIMATIONS = 8;
-	public static final int DELAY_CHARACTER_WALKING = 6;
+	public static final int DELAY_COINS_ANIMATIONS = 6;
+	public static final int DELAY_SCORE_ANIMATIONS = 3;
+	public static final int DELAY_CHARACTER_WALKING = 3;
 	public static final int DELAY_CHARACTER_DYING = 60;
 	
 	public static final int VELOCITY_X = 4;

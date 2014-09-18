@@ -10,11 +10,11 @@ public class Game extends JFrame {
 	public static final int DELAY_CHARACTER_WALKING = 6;
 	public static final int DELAY_CHARACTER_DYING = 60;
 	
-	public static final int VELOCITY_X = 6;
-	public static final int VELOCITY_Y = 8;
+	public static final int VELOCITY_X = 4;
+	public static final int VELOCITY_Y = 4;
 	public static final int VELOCITY_Y_JUMPING = 16;
 	
-	public static final int THREAD_SLEEP_VALUE = 6;
+	public static final int THREAD_SLEEP_VALUE = 10;
 	
 	public static final int SCORE_POSITION_X = 590;
 	public static final int SCORE_POSITION_Y = 10;

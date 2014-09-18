@@ -14,6 +14,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	Image background;
 	Image foreground;
 	Image gameOverImage;
+	Image endPointReachedImage;
 	
 	Character character;
 	Map map;
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 	int[] foregroundPositionsX;
 	int[] startingForegroundPosX;
 	int[] startingBackgroundPosX;
+	Rectangle tempRectangle;
 	
 	public GamePanel() {
 
@@ -44,11 +46,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 		background = Utils.loadImage("res/background.jpg");
 		foreground = Utils.loadImage("res/foreground.png");
-
+		gameOverImage = Utils.loadImage("res/gameover.png");
+		endPointReachedImage = Utils.loadImage("res/youwin.png");
+		livesImage = Utils.loadImage("res/healthanimations/heart.png");
+		
 		scoreAnimation = new Animation("res/scoreanimations/goldCoin", 9, Game.DELAY_SCORE_ANIMATIONS);
 		scoreAnimation.start();
-		livesImage = Utils.loadImage("res/healthanimations/heart.png");
-		gameOverImage = Utils.loadImage("res/gameover.png");
 		
 		gameOver = false;
 		endPointReached = false;
@@ -67,6 +70,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			startingForegroundPosX[i] = foregroundPositionsX[i];
 		}
 		
+		tempRectangle = new Rectangle();
+		
 		score = 0;
 		lives = 3;
 		map = new Map();
@@ -84,7 +89,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
 		if(endPointReached == true)
 		{
-			
+			graphics2d.drawImage(background, 0, 0, null);
+			graphics2d.drawImage(foreground,0,0,null);
+			graphics2d.drawImage(endPointReachedImage,0,0,null);
 		}
 		else if(gameOver == true)
 		{
@@ -97,8 +104,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			{
 					graphics2d.drawImage(background,position,0,null);
 			}
-	//		graphics2d.drawImage(map.fullEndPointImage,
-	//				map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
+			graphics2d.drawImage(map.fullEndPointImage,
+					map.endPointRectangle.x - 281, map.endPointRectangle.y, null);
 	
 			map.drawMap(graphics2d);
 			character.drawCharacter(graphics2d);
@@ -107,7 +114,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			{
 					graphics2d.drawImage(foreground,position,0,null);
 			}
-			
+			graphics2d.drawImage(map.endPointImage,map.endPointRectangle.x,map.endPointRectangle.y,null);
 			for (int i = 0; i < lives; i++) {
 				graphics2d.drawImage(livesImage, i * 39, 0, null);
 			}
@@ -223,7 +230,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 			}
 			if(character.rectangle.intersects(map.endPointRectangle))
 			{
-				endPointReached = true;
+				tempRectangle = new Rectangle(map.endPointRectangle);
+				tempRectangle.x = map.endPointRectangle.x + 60;
+				if(character.rectangle.intersects(tempRectangle))
+					endPointReached = true;
 			}
 			// Enemies checking
 			for (int i = 0; i < map.enemies.size(); i++) {

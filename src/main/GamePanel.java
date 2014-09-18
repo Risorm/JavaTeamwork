@@ -192,9 +192,24 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 					}
 				}
 			}
-			if(character.rectangle.x < 0)
+			else
 			{
-				character.rectangle.x = 0;
+				for (int i = 0; i < map.tiles.size(); i++) {
+					if (map.tiles.get(i).collidable == true) 
+					{
+						if (character.rectangle
+								.intersects(map.tiles.get(i).tileRectangle)
+								&& (character.walkingLeft == true || character.walkingRight == true))
+							{
+								character.virtualRectangle.x -= velx;
+								character.rectangle.x -= velx;
+							}
+						}
+					}
+				if(character.rectangle.x < 0)
+				{
+					character.rectangle.x = 0;
+				}
 			}
 			if(character.rectangle.y + character.rectangle.height > 450)
 			{

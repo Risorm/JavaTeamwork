@@ -1,7 +1,3 @@
-- scrolling background - fix
-- death animation
 - level design
 - total score and high score
-- collision with enemies
-- left boundary
-- GAME OVER / YOU WIN
+- YOU WIN

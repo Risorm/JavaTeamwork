@@ -34,8 +34,7 @@ public class Animation {
 	}
 
 	public void update() {
-		if (start == true)
-		{
+		if (start == true) {
 			currentImage = images.get(currentFrame);
 			timeToDelay++;
 			if (timeToDelay > delay) {

@@ -10,23 +10,26 @@ public class Enemy {
 	public Rectangle startRectangle;
 	int startCenterX;
 	int centerX;
-	
+
 	int radius;
-	
+
 	Animation walkRighAnimation;
 	Animation walkLeftAnimation;
-	
+
 	Image idleRightImage;
 	Image idleLeftImage;
-	
+
 	boolean walkingRight;
 	boolean walkingLeft;
-	
+
 	int speed;
+
 	public void initImages() {
-		walkRighAnimation = new Animation("res/eanimations/walkRight",3,Game.DELAY_ENEMY_ANIMATIONS);
-		walkLeftAnimation = new Animation("res/eanimations/walkLeft",3,Game.DELAY_ENEMY_ANIMATIONS);
-		
+		walkRighAnimation = new Animation("res/eanimations/walkRight", 3,
+				Game.DELAY_ENEMY_ANIMATIONS);
+		walkLeftAnimation = new Animation("res/eanimations/walkLeft", 3,
+				Game.DELAY_ENEMY_ANIMATIONS);
+
 		idleLeftImage = Utils.loadImage("res/eanimations/idleLeft.png");
 		idleRightImage = Utils.loadImage("res/eanimations/idleRight.png");
 	}
@@ -57,8 +60,7 @@ public class Enemy {
 	public void updateMovement() {
 		if (walkingRight == true)
 			rectangle.x += speed;
-		if (rectangle.x + rectangle.width >= centerX + rectangle.width
-				+ radius) {
+		if (rectangle.x + rectangle.width >= centerX + rectangle.width + radius) {
 			walkingRight = false;
 			walkingLeft = true;
 		}
@@ -69,8 +71,8 @@ public class Enemy {
 			walkingLeft = false;
 		}
 	}
-	
-	public Enemy(int x, int y, int radius,int speed) {
+
+	public Enemy(int x, int y, int radius, int speed) {
 		initImages();
 		rectangle = new Rectangle(x * 20, y * 20, 40, 60);
 		startRectangle = new Rectangle(rectangle);

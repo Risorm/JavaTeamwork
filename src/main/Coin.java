@@ -8,9 +8,10 @@ public class Coin {
 	Rectangle rectangle;
 	Rectangle startRectangle;
 	Animation coinAnimation;
-	
+
 	public void initImages() {
-		coinAnimation = new Animation("res/coinanimations/goldCoin",9,Game.DELAY_COINS_ANIMATIONS);
+		coinAnimation = new Animation("res/coinanimations/goldCoin", 9,
+				Game.DELAY_COINS_ANIMATIONS);
 		coinAnimation.start();
 	}
 

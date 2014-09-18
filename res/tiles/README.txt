@@ -1,18 +1,16 @@
 Tile	Texture		Collidable
-A 	 Ceiling1.png	No
-B 	 Ceiling2.png	No
-C 	 Ceiling3.png	No
-D 	 Ceiling4.png	No
-F 	 Lamp1.png	No
-L 	 Tile3.png	No
-Z 	 Tile4.png	No
-X 	 Tile5.png	No
-Y	 Tile6.png	No
-V 	 Window1.png	No
-e	 Crate1.png	Yes
-g	 Panel1.png	Yes
-h	 Panel2.png	Yes
-j	 Tile1.png	Yes
-k	 Tile2.png	Yes
-
-
+A		Ceiling1	No
+B		Ceiling2	No
+C		Ceiling3	No
+D		Ceiling4	No
+F		Lamp1		No
+L		Tile3		No
+Z		Tile4		No
+X		Tile5		No
+Y		Tile6		No
+V 		Window1		No
+e		Crate1		Yes
+g		Panel1		Yes
+h		Panel2		Yes
+j		Tile1		Yes
+k		Tile2		Yes

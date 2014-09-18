@@ -39,7 +39,8 @@ public class Map {
 			while (scanner.hasNextLine()) {
 				String tempLine = scanner.nextLine();
 				for (int x = 0; x < tempLine.length(); x++) {
-					tiles.add(new Tile(x * 20, y * 20, tempLine.charAt(x)));
+					if(tempLine.charAt(x) != ' ')
+						tiles.add(new Tile(x * 20, y * 20, tempLine.charAt(x)));
 				}
 				y++;
 			}

@@ -1,3 +1,0 @@
-- level design
-- total score and high score
-- YOU WIN
